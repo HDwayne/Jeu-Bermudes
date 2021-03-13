@@ -126,10 +126,10 @@ def afficher_grille_de_taille_souhaite():  # affiche une grille de taille souhai
 def saisir_coordonees(grille, text_additionel=""):
     # demande a l'utilisateur de saisir les coordonnées tant qu'elles ne sont pas valides
     while True:
-        coordonees_a_valider = str(input("Saisir les coordonnées" + text_additionel + ": "))
+        coordonees_a_valider = str(input("Saisir les coordonnées " + text_additionel + ": "))
         while not verification_syntaxe_saisir_coordonees(coordonees_a_valider):
             print("Syntaxe incorrecte. Exemple A2")
-            coordonees_a_valider = str(input("Saisir les coordonnées" + text_additionel + ": "))
+            coordonees_a_valider = str(input("Saisir les coordonnées " + text_additionel + ": "))
         ligne, colonne = extraire_coordonees(coordonees_a_valider)
         colonne = int(colonne)
         if est_dans_grille(ligne, colonne, grille):
@@ -176,13 +176,13 @@ def direction_valide(position_depart, destination):  # Verifie si les coordonée
 
 def detection_orientation(position_depart, destination):
     # Détecte la direction prise entre les coordonnées de départ et d'arrivée
-    if destination[0] == position_depart[0]:
-        if destination[1] > position_depart[1]:
-            return "HD"  # Horizontale Droit
+    if destination[0] == position_depart[0] and destination[1] > position_depart[1]:
+        return "HD"  # Horizontale Droit
+    if destination[0] == position_depart[0] and destination[1] < position_depart[1]:
         return "HG"  # Horizontale Gauche
-    if destination[1] == position_depart[1]:
-        if destination[0] > position_depart[0]:
-            return "VB"  # verticale Bas
+    if destination[1] == position_depart[1] and destination[0] > position_depart[0]:
+        return "VB"  # verticale Bas
+    if destination[1] == position_depart[1] and destination[0] < position_depart[0]:
         return "VH"  # verticale Haut
     if destination[1] < position_depart[1] and destination[0] < position_depart[0]:
         return "DGH"  # diagonale Gauche Haut
@@ -236,21 +236,14 @@ def emplacement_libre_entre_diagonale(orientation, position_depart, destination,
 def emplacement_libre_apres_position_depart(position_depart, destination, grille):
     # Vérifie si l'emplacement après le pion de départ est vide (dans l'axe du pion de destination)
     orientation = detection_orientation(position_depart, destination)
-    if orientation == "VH" and grille[position_depart[0]-1][position_depart[1]] == " ":
-        return True
-    elif orientation == "VB" and grille[position_depart[0]+1][position_depart[1]] == " ":
-        return True
-    elif orientation == "HG" and grille[position_depart[0]][position_depart[1]-1] == " ":
-        return True
-    elif orientation == "HD" and grille[position_depart[0]][position_depart[1]+1] == " ":
-        return True
-    elif orientation == "DGH" and grille[position_depart[0]-1][position_depart[1]-1] == " ":
-        return True
-    elif orientation == "DGB" and grille[position_depart[0]+1][position_depart[1]-1] == " ":
-        return True
-    elif orientation == "DDH" and grille[position_depart[0]-1][position_depart[1]+1] == " ":
-        return True
-    elif orientation == "DDB" and grille[position_depart[0]+1][position_depart[1]+1] == " ":
+    if (orientation == "VH" and grille[position_depart[0] - 1][position_depart[1]] == " "
+            or orientation == "VB" and grille[position_depart[0] + 1][position_depart[1]] == " "
+            or orientation == "HG" and grille[position_depart[0]][position_depart[1] - 1] == " "
+            or orientation == "HD" and grille[position_depart[0]][position_depart[1] + 1] == " "
+            or orientation == "DGH" and grille[position_depart[0] - 1][position_depart[1] - 1] == " "
+            or orientation == "DGB" and grille[position_depart[0] + 1][position_depart[1] - 1] == " "
+            or orientation == "DDH" and grille[position_depart[0] - 1][position_depart[1] + 1] == " "
+            or orientation == "DDB" and grille[position_depart[0] + 1][position_depart[1] + 1] == " "):
         return True
     return False
 
@@ -325,7 +318,6 @@ def deplacement_retournement(position_depart, destination, grille, pour_assert=F
     if direction_valide(position_depart, destination):  # Vérifie que l'axe entre les deux pions est valide
         if element_case(destination, grille) == " ":  # Vérifie que la case de destination est vide
             pion_avant_destination = coordonees_pion_avant(position_depart, destination)
-            # if not element_case(pion_avant_destination, grille) == element_case(position_depart, grille):
             if pion_est_ennemi(position_depart, pion_avant_destination, grille):
                 # Vérifie que les éléments des deux cases sont différents
                 if emplacement_libre_entre(position_depart, pion_avant_destination, grille):
@@ -357,12 +349,12 @@ def tour_joueur(grille, pion_joueur, prise_elimination_avant=False):  # Effectue
     tour_valide = False
     coor_pions_noir, coor_pions_blanc = coordonees_pions_joueur(grille)
     while not tour_valide:
-        pion_depart = saisir_coordonees(grille, " du pion de départ")
-        while pion_joueur == "O" and pion_depart not in coor_pions_noir or pion_joueur == "●" and pion_depart not in coor_pions_noir:
+        pion_depart = saisir_coordonees(grille, "du pion de départ")
+        while pion_joueur == "O" and pion_depart not in coor_pions_noir or pion_joueur == "●" and \
+                pion_depart not in coor_pions_noir:
             print("Le pion sélectionné n'est pas un de vos pions.")
-            pion_depart = saisir_coordonees(grille, " du pion de départ")
-
-        position_destination = saisir_coordonees(grille, " de la case de destination")
+            pion_depart = saisir_coordonees(grille, "du pion de départ")
+        position_destination = saisir_coordonees(grille, "de la case de destination")
         if deplacement_elimination(pion_depart, position_destination, grille):
             print("Vous avez fait un déplacement par élimination.")
             tour_valide, prise_elimination_avant = True, True
@@ -374,11 +366,11 @@ def tour_joueur(grille, pion_joueur, prise_elimination_avant=False):  # Effectue
                 print("Vous pouvez continuer ce type de déplacement."
                       " Écrivez n'importe quelle coordonnée non valide pour arrêter")
                 pion_depart = position_destination
-                position_destination = saisir_coordonees(grille, " de la case de destination")
+                position_destination = saisir_coordonees(grille, "de la case de destination")
                 while deplacement_retournement(pion_depart, position_destination, grille):
                     afficher_table(grille, Alphabet, pion_joueur)
                     pion_depart = position_destination
-                    position_destination = saisir_coordonees(grille, " de la case de destination")
+                    position_destination = saisir_coordonees(grille, "de la case de destination")
             else:
                 print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par "
                       "retournement (saut).")
@@ -704,6 +696,19 @@ def afficher_sous_menu_tour_joueur():  # affichage du sous menu tour joueur sur 
     ''')
 
 
+def sous_menu_tour_joueur():
+    afficher_sous_menu_tour_joueur()
+    selection = saisir_nombre(nb_minimum=1, nb_maximum=3)
+    if selection == 1:
+        pion_joueur = "O"
+    elif selection == 2:
+        pion_joueur = "●"
+    elif selection == 3:
+        clear(80)
+        menu()
+    tour_joueur(Matrice_fin_partie, pion_joueur)
+
+
 def menu():  # centralise et exécute les fonctions appropriées selon le numéro sélectionné
     afficher_menu()
     numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=8)
@@ -715,16 +720,7 @@ def menu():  # centralise et exécute les fonctions appropriées selon le numér
     elif numero_selectionne == 5:
         saisir_coordonees(creer_matrice(taille=9))
     elif numero_selectionne == 6:
-        afficher_sous_menu_tour_joueur()
-        selection = saisir_nombre(nb_minimum=1, nb_maximum=3)
-        if selection == 1:
-            pion_joueur = "O"
-        elif selection == 2:
-            pion_joueur = "●"
-        elif selection == 3:
-            clear(80)
-            menu()
-        tour_joueur(Matrice_fin_partie, pion_joueur)
+        sous_menu_tour_joueur()
     elif numero_selectionne == 7:
         lancer_testes_fonctions()
     elif numero_selectionne == 8:

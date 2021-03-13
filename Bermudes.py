@@ -338,11 +338,30 @@ def deplacement_retournement(position_depart, destination, grille, pour_assert=F
     return False
 
 
-def tour_joueur(grille, prise_elimination_avant=False):  # Effectue le tour d'un joueur
-    afficher_table(grille, Alphabet)
+def coordonees_pions_joueur(grille):
+    coor_pions_noir, coor_pions_blanc = [], []
+    for ligne in range(len(grille)):
+        for elements in range(len(grille)):
+            if grille[ligne][elements] == "●":
+                coor_pions_blanc.append((ligne, elements))
+            elif grille[ligne][elements] == "O":
+                coor_pions_noir.append((ligne, elements))
+    return coor_pions_noir, coor_pions_blanc
+
+
+# TODO assert coor_pions_joueur
+
+
+def tour_joueur(grille, pion_joueur, prise_elimination_avant=False):  # Effectue le tour d'un joueur
+    afficher_table(grille, Alphabet, pion_joueur)
     tour_valide = False
+    coor_pions_noir, coor_pions_blanc = coordonees_pions_joueur(grille)
     while not tour_valide:
         pion_depart = saisir_coordonees(grille, " du pion de départ")
+        while pion_joueur == "O" and pion_depart not in coor_pions_noir or pion_joueur == "●" and pion_depart not in coor_pions_noir:
+            print("Le pion sélectionné n'est pas un de vos pions.")
+            pion_depart = saisir_coordonees(grille, " du pion de départ")
+
         position_destination = saisir_coordonees(grille, " de la case de destination")
         if deplacement_elimination(pion_depart, position_destination, grille):
             print("Vous avez fait un déplacement par élimination.")
@@ -351,13 +370,13 @@ def tour_joueur(grille, prise_elimination_avant=False):  # Effectue le tour d'un
             if not prise_elimination_avant:
                 tour_valide = True
                 print("Vous avez fait un déplacement par retournement.")
-                afficher_table(grille, Alphabet)
+                afficher_table(grille, Alphabet, pion_joueur)
                 print("Vous pouvez continuer ce type de déplacement."
                       " Écrivez n'importe quelle coordonnée non valide pour arrêter")
                 pion_depart = position_destination
                 position_destination = saisir_coordonees(grille, " de la case de destination")
                 while deplacement_retournement(pion_depart, position_destination, grille):
-                    afficher_table(grille, Alphabet)
+                    afficher_table(grille, Alphabet, pion_joueur)
                     pion_depart = position_destination
                     position_destination = saisir_coordonees(grille, " de la case de destination")
             else:
@@ -367,7 +386,7 @@ def tour_joueur(grille, prise_elimination_avant=False):  # Effectue le tour d'un
         else:
             print("Merci de respécter les règles de déplacement.")
             tour_valide = False
-    afficher_table(grille, Alphabet)
+    afficher_table(grille, Alphabet, pion_joueur)
     fin_partie(grille)
     return prise_elimination_avant
 
@@ -673,6 +692,18 @@ def afficher_menu():  # affichage du menu sur la console
     ''')
 
 
+def afficher_sous_menu_tour_joueur():  # affichage du sous menu tour joueur sur la console
+    print('''
+    ┌───────────────────────────────────────────┐
+      N°          Tour d'un Joueur
+    └───────────────────────────────────────────┘
+     [01]   Lancer le tour du joueur "O"
+     [02]   Lancer le tour du joueur "●"
+     [03]   Retour menu
+
+    ''')
+
+
 def menu():  # centralise et exécute les fonctions appropriées selon le numéro sélectionné
     afficher_menu()
     numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=8)
@@ -684,7 +715,16 @@ def menu():  # centralise et exécute les fonctions appropriées selon le numér
     elif numero_selectionne == 5:
         saisir_coordonees(creer_matrice(taille=9))
     elif numero_selectionne == 6:
-        tour_joueur(Matrice_fin_partie)
+        afficher_sous_menu_tour_joueur()
+        selection = saisir_nombre(nb_minimum=1, nb_maximum=3)
+        if selection == 1:
+            pion_joueur = "O"
+        elif selection == 2:
+            pion_joueur = "●"
+        elif selection == 3:
+            clear(80)
+            menu()
+        tour_joueur(Matrice_fin_partie, pion_joueur)
     elif numero_selectionne == 7:
         lancer_testes_fonctions()
     elif numero_selectionne == 8:

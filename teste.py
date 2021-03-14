@@ -68,7 +68,6 @@ coordonnees_des_cases = {
 
 
 
-
 # elif deplacement_retournement(pion_depart, position_destination, grille):
 # nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
 # afficher_table(grille, Alphabet, tour_du_joueur=grille[position_destination[0]][position_destination[1]],

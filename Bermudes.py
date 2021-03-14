@@ -707,13 +707,14 @@ def afficher_sous_menu_tour_joueur():  # affichage du sous menu tour joueur sur 
 def sous_menu_tour_joueur():
     afficher_sous_menu_tour_joueur()
     selection = saisir_nombre(nb_minimum=1, nb_maximum=3)
+    clear(80)
     if selection == 1:
         pion_joueur = "O"
     elif selection == 2:
         pion_joueur = "●"
     elif selection == 3:
-        clear(80)
         menu()
+
     tour_joueur(Matrice_fin_partie, pion_joueur)
 
 

@@ -344,38 +344,46 @@ def coordonees_pions_joueur(grille):
 # TODO assert coor_pions_joueur
 
 
+def demander_pion_depart(pion_joueur, grille):  # sous fonction de tour_joueur(). Saisie pion depart
+    coor_pions_noir, coor_pions_blanc = coordonees_pions_joueur(grille)
+    pion_depart = saisir_coordonees(grille, "du pion de départ")
+    while pion_joueur == "O" and pion_depart not in coor_pions_noir or pion_joueur == "●" and \
+            pion_depart not in coor_pions_blanc:  # Vérifie que le pion sélectionné appartient au joueur
+        print("Le pion sélectionné n'est pas un de vos pions.")
+        pion_depart = saisir_coordonees(grille, "du pion de départ")
+    return pion_depart
+
+
+def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, grille):
+    # sous fonction de tour_joueur(). Enchainement déplacement par retournement
+    if not prise_elimination_avant:  # sera utile pour atelier 4, explication dans print() à la fin de la fonction.
+        tour_valide = True
+        print("Vous avez fait un déplacement par retournement.")
+        afficher_table(grille, Alphabet, pion_joueur)
+        print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
+        pion_depart = position_destination
+        position_destination = saisir_coordonees(grille, "de la case de destination")
+        while deplacement_retournement(pion_depart, position_destination, grille):
+            # Tant que le déplacement réalisé est valide, recommencer
+            afficher_table(grille, Alphabet, pion_joueur)
+            pion_depart = position_destination
+            position_destination = saisir_coordonees(grille, "de la case de destination")
+        return tour_valide
+    print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
+
+
 def tour_joueur(grille, pion_joueur, prise_elimination_avant=False):  # Effectue le tour d'un joueur
     afficher_table(grille, Alphabet, pion_joueur)
     tour_valide = False
-    coor_pions_noir, coor_pions_blanc = coordonees_pions_joueur(grille)
     while not tour_valide:
-        pion_depart = saisir_coordonees(grille, "du pion de départ")
-        while pion_joueur == "O" and pion_depart not in coor_pions_noir or pion_joueur == "●" and \
-                pion_depart not in coor_pions_noir:
-            print("Le pion sélectionné n'est pas un de vos pions.")
-            pion_depart = saisir_coordonees(grille, "du pion de départ")
+        pion_depart = demander_pion_depart(pion_joueur, grille)
         position_destination = saisir_coordonees(grille, "de la case de destination")
-        if deplacement_elimination(pion_depart, position_destination, grille):
+        if deplacement_elimination(pion_depart, position_destination, grille):  # deplacement_elimination
             print("Vous avez fait un déplacement par élimination.")
             tour_valide, prise_elimination_avant = True, True
-        elif deplacement_retournement(pion_depart, position_destination, grille):
-            if not prise_elimination_avant:
-                tour_valide = True
-                print("Vous avez fait un déplacement par retournement.")
-                afficher_table(grille, Alphabet, pion_joueur)
-                print("Vous pouvez continuer ce type de déplacement."
-                      " Écrivez n'importe quelle coordonnée non valide pour arrêter")
-                pion_depart = position_destination
-                position_destination = saisir_coordonees(grille, "de la case de destination")
-                while deplacement_retournement(pion_depart, position_destination, grille):
-                    afficher_table(grille, Alphabet, pion_joueur)
-                    pion_depart = position_destination
-                    position_destination = saisir_coordonees(grille, "de la case de destination")
-            else:
-                print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par "
-                      "retournement (saut).")
-                tour_valide = False
-        else:
+        elif deplacement_retournement(pion_depart, position_destination, grille):  # deplacement_retournement
+            tour_valide = tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, grille)
+        else:  # Déplacement demandé invalide
             print("Merci de respécter les règles de déplacement.")
             tour_valide = False
     afficher_table(grille, Alphabet, pion_joueur)

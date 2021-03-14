@@ -391,7 +391,7 @@ def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, a
         if len(liste_deplacement_possible) > 0:
             print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
             position_destination = saisir_coordonees(grille, "de la case de destination")
-        
+
             while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
                 # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
                 afficher_table(grille, Alphabet, pion_joueur)
@@ -407,6 +407,8 @@ def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, a
                     position_destination = saisir_coordonees(grille, "de la case de destination")
                 else:
                     print("Aucun déplacement possible.")
+        else:
+            print("Aucun déplacement possible.")
         return tour_valide
     print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
 

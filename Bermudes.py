@@ -269,6 +269,30 @@ def coordonees_pion_avant(position_depart, destination):
         return destination[0]+1, destination[1]+1
 
 
+def coordonees_pion_apres(position_depart, destination):
+    # Vérifie si l'emplacement après le pion de départ est vide (dans l'axe du pion de destination)
+    orientation = detection_orientation(position_depart, destination)
+    if orientation == "VH":
+        return destination[0] - 1, destination[1]
+    elif orientation == "VB":
+        return destination[0] + 1, destination[1]
+    elif orientation == "HG":
+        return destination[0], destination[1] - 1
+    elif orientation == "HD":
+        return destination[0], destination[1] + 1
+    elif orientation == "DGH":
+        return destination[0] - 1, destination[1] - 1
+    elif orientation == "DGB":
+        return destination[0] + 1, destination[1] - 1
+    elif orientation == "DDH":
+        return destination[0] - 1, destination[1] + 1
+    elif orientation == "DDB":
+        return destination[0] + 1, destination[1] + 1
+
+
+# TODO assert position apres
+
+
 def element_case(variable, grille):
     # Renvoie l'élément ayant pour coordonnée "variable" dans une grille donnée
     return grille[variable[0]][variable[1]]
@@ -374,6 +398,10 @@ def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, g
 
 def tour_joueur(grille, pion_joueur, prise_elimination_avant=False):  # Effectue le tour d'un joueur
     afficher_table(grille, Alphabet, pion_joueur)
+
+    affichage_assistant_deplacement_elimination(assistant_deplacement_elimination(pion_joueur, grille))
+    affichage_assistant_deplacement_retournement(assistant_deplacement_retournement(pion_joueur, grille))
+
     tour_valide = False
     while not tour_valide:
         pion_depart = demander_pion_depart(pion_joueur, grille)
@@ -389,6 +417,65 @@ def tour_joueur(grille, pion_joueur, prise_elimination_avant=False):  # Effectue
     afficher_table(grille, Alphabet, pion_joueur)
     fin_partie(grille)
     return prise_elimination_avant
+
+
+def assistant_deplacement_elimination(pion_joueur, grille):
+    position_pions = coordonees_pions_joueur(grille)
+    liste_deplacement_possible = []
+    if pion_joueur == "O":
+        joueur, temp = 0, 1
+    elif pion_joueur == "●":
+        oueur, temp = 1, 0
+    for pions in position_pions[joueur]:
+        for pion_adverse in position_pions[temp]:
+            if deplacement_elimination(pions, pion_adverse, grille, True):
+                liste_deplacement_possible.append((pions, pion_adverse))
+    return liste_deplacement_possible
+
+
+def affichage_assistant_deplacement_elimination(liste):
+    print("les deplacements par elimination possiblent sont :")
+    for element in liste:
+        pion1 = conversion_coordonees_inv(element[0][0], element[0][1])
+        pion2 = conversion_coordonees_inv(element[1][0], element[1][1])
+        print(pion1[0] + str(pion1[1]) + " -> " + pion2[0] + str(pion2[1]))
+
+
+def affichage_assistant_deplacement_retournement(liste):
+    print("les deplacements par retournement possiblent sont :")
+    for element in liste:
+        pion1 = conversion_coordonees_inv(element[0][0], element[0][1])
+        pion2 = conversion_coordonees_inv(element[1][0], element[1][1])
+        print(pion1[0] + str(pion1[1]) + " -> " + pion2[0] + str(pion2[1]))
+
+
+def assistant_deplacement_retournement(pion_joueur, grille):
+    position_pions = coordonees_pions_joueur(grille)
+    liste_deplacement_possible = []
+    if pion_joueur == "O":
+        joueur, temp = 0, 1
+    elif pion_joueur == "●":
+        joueur, temp = 1, 0
+
+    grille_travaille = grille[:]
+    coup=[]
+    for pions in position_pions[joueur]:
+        for pion_adverse in position_pions[temp]:
+            pion_apres = coordonees_pion_apres(pions, pion_adverse)
+            if 0 <= pion_apres[0] <= 8 and 0 <= pion_apres[1] <= 8 and \
+                    deplacement_retournement(pions, pion_apres, grille_travaille, True):
+                coup.append((pions, pion_apres))
+
+    
+    liste_deplacement_possible.append(coup)
+    return liste_deplacement_possible
+
+
+def conversion_coordonees_inv(ligne, colonne):
+    # Converti les coordonée entrée en fonction de leur indice dans la matrice (D3 -> (3, 2))
+    ligne = chr(ligne+65)
+    colonne = colonne + 1
+    return ligne, colonne
 
 
 def test_creer_matrice():  # Teste la fonction "cree_matrice"

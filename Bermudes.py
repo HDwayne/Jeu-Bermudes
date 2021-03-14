@@ -290,9 +290,6 @@ def coordonees_pion_apres(position_depart, destination):
         return destination[0] + 1, destination[1] + 1
 
 
-# TODO assert position apres
-
-
 def element_case(variable, grille):
     # Renvoie l'élément ayant pour coordonnée "variable" dans une grille donnée
     return grille[variable[0]][variable[1]]
@@ -322,7 +319,7 @@ def fin_partie(grille):
     return False
 
 
-def deplacement_elimination(position_depart, destination, grille, pour_assert=False):
+def deplacement_elimination(position_depart, destination, grille, pas_de_deplacement=False):
     # Vérifie si les pions sélectionnés sont valides au déplacement. Si c'est le cas le déplacement est effectué
     if direction_valide(position_depart, destination):  # Vérifie que l'axe entre les deux pions est valide
         if pion_est_ennemi(position_depart, destination, grille):  # Vérifie que les deux pions sont ennemi
@@ -330,15 +327,15 @@ def deplacement_elimination(position_depart, destination, grille, pour_assert=Fa
                     emplacement_libre_apres_position_depart(position_depart, destination, grille):
                 # Verifie qu'il y a bien une case vide entre les deux pions et
                 # que les cases (s'il y en a plusieur) entre les deux pions sont toutes vides
-                if not pour_assert:  # Ne réalise pas les déplacements dans le cas des asserts
-                    # TODO HERE PRBL: Matrice_fin_partie modifier en même temps...
+                if not pas_de_deplacement:  # Ne réalise pas les déplacements dans le cas des asserts
+                    # TODO HPROBLEME: Matrice_fin_partie modifié en même temps !
                     set_element_case(destination, element_case(position_depart, grille), grille)
                     set_element_case(position_depart, " ", grille)
                 return True  # Renvoie True si le déplacement est valide ou a été effectué.
     return False
 
 
-def deplacement_retournement(position_depart, destination, grille, pour_assert=False):
+def deplacement_retournement(position_depart, destination, grille, pas_de_deplacement=False):
     # Vérifie si les pions sélectionnés sont valides au déplacement. Si c'est le cas le déplacement est effectué
     if direction_valide(position_depart, destination):  # Vérifie que l'axe entre les deux pions est valide
         if element_case(destination, grille) == " ":  # Vérifie que la case de destination est vide
@@ -347,14 +344,11 @@ def deplacement_retournement(position_depart, destination, grille, pour_assert=F
                 # Vérifie que les éléments des deux cases sont différents
                 if emplacement_libre_entre(position_depart, pion_avant_destination, grille):
                     # Vérifie que les cases entre les deux pions sont toutes vides
-                    if not pour_assert:  # Ne réalise pas les déplacements dans le cas des asserts
-                        # TODO HERE PRBL: Matrice_fin_partie modifier en même temps...
+                    if not pas_de_deplacement:  # Ne réalise pas les déplacements dans le cas des asserts
+                        # TODO HPROBLEME: Matrice_fin_partie modifié en même temps !
                         set_element_case(destination, element_case(position_depart, grille), grille)
                         set_element_case(pion_avant_destination, element_case(position_depart, grille), grille)
                         set_element_case(position_depart, " ", grille)
-                        # grille[destination[0]][destination[1]] = temp
-                        # # grille[pion_avant_destination[0]][pion_avant_destination[1]] = grille[position_depart[0]][position_depart[1]]
-                        # # grille[position_depart[0]][position_depart[1]] = " "
                     return True   # Renvoie True si le déplacement est valide ou a été effectué.
     return False
 
@@ -368,9 +362,6 @@ def coordonees_pions_joueur(grille):
             elif grille[ligne][elements] == "O":
                 coor_pions_noir.append((ligne, elements))
     return coor_pions_noir, coor_pions_blanc
-
-
-# TODO assert coor_pions_joueur
 
 
 def demander_pion_depart(pion_joueur, grille):  # sous fonction de tour_joueur(). Saisie pion depart
@@ -396,18 +387,21 @@ def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, a
                 assistant_deplacement_retournement(pion_joueur, grille, pion_depart), "retournement")
         else:
             liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+
         print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
         position_destination = saisir_coordonees(grille, "de la case de destination")
 
         while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
-            # Tant que le déplacement réalisé est valide, recommencer
+            # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
             afficher_table(grille, Alphabet, pion_joueur)
             pion_depart = position_destination
+
             if assistant:
                 liste_deplacement_possible = affichage_assistant_deplacement(
                     assistant_deplacement_retournement(pion_joueur, grille, pion_depart), "retournement")
             else:
                 liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+
             if len(liste_deplacement_possible) > 0:
                 position_destination = saisir_coordonees(grille, "de la case de destination")
             else:
@@ -458,30 +452,29 @@ def assistant_deplacement_elimination(pion_joueur, grille):  # créé une liste 
     return liste_deplacement_possible
 
 
-# TODO assert assistant_deplacement_elimination
-
-
-def assistant_deplacement_retournement(pion_joueur, grille, pion_depart_force=""):  # créé une liste de déplacements par retournement
+def assistant_deplacement_retournement(pion_joueur, grille, pion_depart_force=""):
+    # créé une liste de déplacements par retournement
     position_pions = coordonees_pions_joueur(grille)
     liste_deplacement_possible = []
     joueur, autre_joueur = assistant_deplacement_convertir_joueur(pion_joueur)
     if pion_depart_force == "":
         for pions in position_pions[joueur]:
-            for pion_adverse in position_pions[autre_joueur]:
-                pion_apres = coordonees_pion_apres(pions, pion_adverse)
-                if 0 <= pion_apres[0] <= 8 and 0 <= pion_apres[1] <= 8:
-                    if deplacement_retournement(pions, pion_apres, grille, True):
-                        liste_deplacement_possible.append((pions, pion_apres))
+            liste_deplacement_possible = assistant_determiner_retournement(
+                liste_deplacement_possible, position_pions, autre_joueur, pions, grille)
     else:
-        for pion_adverse in position_pions[autre_joueur]:
-            pion_apres = coordonees_pion_apres(pion_depart_force, pion_adverse)
-            if 0 <= pion_apres[0] <= 8 and 0 <= pion_apres[1] <= 8:
-                if deplacement_retournement(pion_depart_force, pion_apres, grille, True):
-                    liste_deplacement_possible.append((pion_depart_force, pion_apres))
+        liste_deplacement_possible = assistant_determiner_retournement(
+            liste_deplacement_possible, position_pions, autre_joueur, pion_depart_force, grille)
     return liste_deplacement_possible
 
 
-# TODO assert assistant_deplacement_retournement
+def assistant_determiner_retournement(liste_deplacement_possible, position_pions, autre_joueur, pion_depart, grille):
+    # sous fonction pour eviter une répétition de boucle dans assistant_deplacement_retournement()
+    for pion_adverse in position_pions[autre_joueur]:
+        pion_apres = coordonees_pion_apres(pion_depart, pion_adverse)
+        if 0 <= pion_apres[0] <= 8 and 0 <= pion_apres[1] <= 8:
+            if deplacement_retournement(pion_depart, pion_apres, grille, True):
+                liste_deplacement_possible.append((pion_depart, pion_apres))
+    return liste_deplacement_possible
 
 
 def affichage_assistant_deplacement(liste, type):  # affiche les déplacements créés par l'assistant
@@ -746,6 +739,42 @@ def test_deplacement_retournement():  # Teste la fonction "deplacement_retournem
                                         Matrice_fin_partie, True), "deplacement elimination orientation DDB"
 
 
+def test_coordonees_pions_joueur():
+    assert coordonees_pions_joueur(Matrice_debut_partie) == (
+        [(6, 0), (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (7, 0), (7, 1), (7, 2), (7, 3),
+         (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (8, 0), (8, 1), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7),
+         (8, 8)], [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (1, 0), (1, 1), (1, 2),
+        (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7),
+                   (2, 8)]), "coordonees pions joueur Matrice debut partie"
+    assert coordonees_pions_joueur(Matrice_milieu_partie) == ([(1, 1), (2, 0), (2, 1), (3, 0), (6, 8), (7, 0), (7, 1),
+        (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (8, 0), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8)],
+        [(0, 0), (0, 2), (0, 4), (0, 5), (0, 6), (0, 8), (1, 0), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
+    (1, 8), (2, 2), (2, 3), (2, 7), (2, 8), (3, 5), (4, 4), (7, 8)]), "coordonees pions joueur Matrice milieu partie"
+    assert coordonees_pions_joueur(Matrice_fin_partie) == ([(0, 5), (0, 6), (0, 7), (1, 3), (1, 7), (2, 0), (3, 0),
+        (3, 6), (4, 3), (4, 4), (4, 8), (6, 8), (7, 0), (7, 1), (7, 4), (7, 5), (7, 8), (8, 0), (8, 2), (8, 3), (8, 4),
+        (8, 5), (8, 7), (8, 8)], [(0, 0), (0, 3), (0, 8), (1, 0), (1, 8), (2, 2), (3, 1), (3, 4)]), \
+        "coordonees pions joueur Matrice fin partie"
+
+
+def test_coordonees_pion_apres():  # Teste la fonction "coordonees_pion_avant"
+    assert (1, 2) == coordonees_pion_apres(conversion_coordonees("I", 3), conversion_coordonees("C", 3)),\
+        "coordonees pion avant orientation VH"
+    assert (5, 4) == coordonees_pion_apres(conversion_coordonees("D", 5), conversion_coordonees("E", 5)),\
+        "coordonees pion avant orientation VB"
+    assert (3, 3) == coordonees_pion_apres(conversion_coordonees("D", 7), conversion_coordonees("D", 5)),\
+        "coordonees pion avant orientation HG"
+    assert (0, 4) == coordonees_pion_apres(conversion_coordonees("A", 1), conversion_coordonees("A", 4)),\
+        "coordonees pion avant orientation HD"
+    assert (1, 1) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("C", 3)),\
+        "coordonees pion avant orientation DGH"
+    assert (0, 8) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("B", 8)),\
+        "coordonees pion avant orientation DDH"
+    assert (8, 0) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("H", 2)),\
+        "coordonees pion avant orientation DGB"
+    assert (5, 4) == coordonees_pion_apres(conversion_coordonees("B", 1), conversion_coordonees("E", 4)),\
+        "coordonees pion avant orientation DDB"
+
+
 def lancer_testes_fonctions():  # Exécute l'ensemble des fonctions teste_X
     space = "     "
     test_creer_matrice()
@@ -778,6 +807,10 @@ def lancer_testes_fonctions():  # Exécute l'ensemble des fonctions teste_X
     print(space + "test_deplacement_elimination                 : OK")
     test_deplacement_retournement()
     print(space + "test_deplacement_retournement                : OK")
+    test_coordonees_pions_joueur()
+    print(space + "test_coordonees_pions_joueur                 : OK")
+    test_coordonees_pion_apres()
+    print(space + "test_coordonees_pion_apres                   : OK")
 
 
 def clear(hauteur):  # Permets de "clear" la console en affichant du vide sur une hauteur donnée

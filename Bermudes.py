@@ -313,9 +313,9 @@ def fin_partie(grille):
     nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
     if nb_pions_noir < 6 or nb_pion_blanc < 6:
         if nb_pions_noir < 6:
-            return True, print("le joueur \"O\" à gagner !")
-        elif nb_pion_blanc < 6:
             return True, print("le joueur \"●\" à gagner !")
+        elif nb_pion_blanc < 6:
+            return True, print("le joueur \"O\" à gagner !")
     return False
 
 
@@ -374,6 +374,47 @@ def demander_pion_depart(pion_joueur, grille):  # sous fonction de tour_joueur()
     return pion_depart
 
 
+# def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille, deplacement_robot, robot=False):
+#     # sous fonction de tour_joueur(). Enchainement déplacement par retournement
+#     if not prise_elimination_avant:  # sera utile pour atelier 4, explication dans print() à la fin de la fonction.
+#         tour_valide = True
+#         print("Vous avez fait un déplacement par retournement.")
+#         afficher_table(grille, Alphabet, pion_joueur)
+#
+#         pion_depart = position_destination
+#         liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+#         if assistant:
+#             affichage_assistant_deplacement(liste_deplacement_possible, "retournement")
+#
+#         if len(liste_deplacement_possible) > 0:
+#             if not robot:
+#                 print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
+#                 position_destination = saisir_coordonees(grille, "de la case de destination")
+#             else:
+#                 deplacement_choisi = random.choice(liste_deplacement_possible)
+#                 position_destination = deplacement_choisi[1]
+#             while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
+#                 # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
+#                 afficher_table(grille, Alphabet, pion_joueur)
+#                 pion_depart = position_destination
+#
+#                 liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+#                 if assistant:
+#                     affichage_assistant_deplacement(liste_deplacement_possible, "retournement")
+#
+#                 if len(liste_deplacement_possible) > 0 and not robot:
+#                     position_destination = saisir_coordonees(grille, "de la case de destination")
+#                 elif len(liste_deplacement_possible) > 0 and robot:
+#                     deplacement_choisi = random.choice(liste_deplacement_possible)
+#                     position_destination = deplacement_choisi[1]
+#                 else:
+#                     print("Aucun déplacement possible.")
+#         else:
+#             print("Aucun déplacement possible.")
+#         return tour_valide
+#     print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
+
+
 def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille):
     # sous fonction de tour_joueur(). Enchainement déplacement par retournement
     if not prise_elimination_avant:  # sera utile pour atelier 4, explication dans print() à la fin de la fonction.
@@ -413,26 +454,71 @@ def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, a
     print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
 
 
-def tour_joueur(grille, pion_joueur, assistant, prise_elimination_avant=False):  # Effectue le tour d'un joueur
+def tour_joueur_dp_robot(liste_deplacement, grille):
+    deplacement_choisi = choice(liste_deplacement)
+    pion_depart = deplacement_choisi[0]
+    destination = deplacement_choisi[1]
+
+    print(conversion_coordonees_inv(pion_depart[0], pion_depart[1]), conversion_coordonees_inv(destination[0], destination[1]))
+    liste_dep_retour = assistant_deplacement_retournement(grille[pion_depart[0]][pion_depart[1]], grille, pion_depart)
+    while deplacement_retournement(pion_depart, destination, grille) and len(liste_dep_retour) > 0:
+        pion_depart = destination
+        liste_dep_retour = assistant_deplacement_retournement(grille[pion_depart[0]][pion_depart[1]], grille, pion_depart)
+
+
+def tour_joueur(grille, pion_joueur, assistant, prise_elimination_avant=False, robot=False):  # Effectue le tour d'un joueur
     afficher_table(grille, Alphabet, pion_joueur)
-    if assistant:  # Affiche les déplacements possibles si assistant est activé
-        affichage_assistant_deplacement(assistant_deplacement_elimination(pion_joueur, grille), "élimination")
-        affichage_assistant_deplacement(assistant_deplacement_retournement(pion_joueur, grille), "retournement")
+
+    liste_dep_elim = assistant_deplacement_elimination(pion_joueur, grille)
+    liste_dep_retour = assistant_deplacement_retournement(pion_joueur, grille)
+
+    if assistant and not robot:  # Affiche les déplacements possibles si assistant est activé
+        affichage_assistant_deplacement(liste_dep_elim, "élimination")
+        affichage_assistant_deplacement(liste_dep_retour, "retournement")
     tour_valide = False
     while not tour_valide:
-        pion_depart = demander_pion_depart(pion_joueur, grille)
-        position_destination = saisir_coordonees(grille, "de la case de destination")
-        if deplacement_elimination(pion_depart, position_destination, grille):  # deplacement_elimination
-            print("Vous avez fait un déplacement par élimination.")
-            tour_valide, prise_elimination_avant = True, True
-        elif deplacement_retournement(pion_depart, position_destination, grille):  # deplacement_retournement
-            tour_valide = tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille)
-        else:  # Déplacement demandé invalide
-            print("Merci de respécter les règles de déplacement.")
-            tour_valide = False
+        if robot:
+            if len(liste_dep_retour) > 0 and len(liste_dep_elim) > 0:
+                choix_type_deplacement = randrange(0, 2)
+            else:
+                if not len(liste_dep_retour) > 0 or prise_elimination_avant:
+                    choix_type_deplacement = 0
+                elif not len(liste_dep_elim) > 0:
+                    choix_type_deplacement = 1
+
+            if choix_type_deplacement == 0:  # deplacement_elimination
+                print("robot elimination")
+                deplacement = choice(liste_dep_elim)
+                tour_valide, prise_elimination_avant = True, True
+                pion_depart = deplacement[0]
+                position_destination = deplacement[1]
+                deplacement_elimination(pion_depart, position_destination, grille)
+                robot_probleme = False
+
+            elif choix_type_deplacement == 1 and len(liste_dep_retour) > 0:  # deplacement_retournement
+                print("robot retournement")
+                tour_valide = True
+                tour_joueur_dp_robot(liste_dep_retour, grille)
+                robot_probleme, prise_elimination_avant = False, False
+
+            else:
+                tour_valide, robot_probleme = True, True
+                print("ROBOT : Aucun déplacement disponible !")
+            afficher_table(grille, Alphabet, pion_joueur)
+            return robot_probleme, prise_elimination_avant
+        else:
+            pion_depart = demander_pion_depart(pion_joueur, grille)
+            position_destination = saisir_coordonees(grille, "de la case de destination")
+            if deplacement_elimination(pion_depart, position_destination, grille):  # deplacement_elimination
+                print("Vous avez fait un déplacement par élimination.")
+                tour_valide, prise_elimination_avant = True, True
+            elif deplacement_retournement(pion_depart, position_destination, grille):  # deplacement_retournement
+                tour_valide = tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille)
+            else:  # Déplacement demandé invalide
+                print("Merci de respécter les règles de déplacement.")
+                tour_valide = False
     afficher_table(grille, Alphabet, pion_joueur)
-    fin_partie(grille)
-    return prise_elimination_avant
+    return False, prise_elimination_avant
 
 
 def assistant_deplacement_convertir_joueur(pion_joueur):
@@ -494,6 +580,17 @@ def conversion_coordonees_inv(ligne, colonne):
     ligne = chr(ligne+65)
     colonne = colonne + 1
     return ligne, colonne
+
+
+def partie(grille, assistant):
+    robot, robot1_probleme, robot2_probleme, prise_elim_avant1, prise_elim_avant2 = True, False, False, False, False
+    while not fin_partie(grille) and not robot1_probleme and not robot2_probleme:
+            if robot:
+                robot1_problemen, prise_elim_avant1 = tour_joueur(grille, "O", assistant, prise_elim_avant1, robot=True)
+                print("-----------------------------------------------------------")
+                if not fin_partie(grille):
+                    robot2_probleme, prise_elim_avant2 = tour_joueur(grille, "●", assistant, prise_elim_avant2, robot=True)
+                    print("-----------------------------------------------------------")
 
 
 def test_creer_matrice():  # Teste la fonction "cree_matrice"
@@ -832,7 +929,8 @@ def afficher_menu():  # affichage du menu sur la console
      [04]   Afficher grille de taille souhaitée
      [05]   Saisir coordonnées
      [06]   Lancer le tour d'un joueur
-     [07]   Quitter
+     [07]   Lancer une partie
+     [08]   Quitter
      
     ''')
 
@@ -871,7 +969,7 @@ def sous_menu_tour_joueur():
 
 def menu():  # centralise et exécute les fonctions appropriées selon le numéro sélectionné
     afficher_menu()
-    numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=7)
+    numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=8)
     clear(80)
     if 1 <= numero_selectionne <= 3:
         afficher_grille_predefini(numero_selectionne)
@@ -883,6 +981,8 @@ def menu():  # centralise et exécute les fonctions appropriées selon le numér
     elif numero_selectionne == 6:
         sous_menu_tour_joueur()
     elif numero_selectionne == 7:
+        partie(Matrice_debut_partie[:], assistant=True)
+    elif numero_selectionne == 8:
         quit()
     menu()
 

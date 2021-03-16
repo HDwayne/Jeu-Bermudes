@@ -2,48 +2,48 @@
 from random import *
 
 
-def Fonction_Matrice_milieu_partie():
-    Matrice_milieu_partie = [['●', ' ', '●', ' ', '●', '●', '●', ' ', '●'],
-                            ['●', 'O', '●', '●', '●', '●', '●', '●', '●'],
-                            ['O', 'O', '●', '●', ' ', ' ', ' ', '●', '●'],
-                            ['O', ' ', ' ', ' ', ' ', '●', ' ', ' ', ' '],
-                            [' ', ' ', ' ', ' ', '●', ' ', ' ', ' ', ' '],
-                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
-                            ['O', 'O', ' ', 'O', 'O', 'O', 'O', 'O', '●'],
-                            ['O', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
-    return Matrice_milieu_partie
+def fonction_matrice_milieu_partie():
+    matrice = [['●', ' ', '●', ' ', '●', '●', '●', ' ', '●'],
+               ['●', 'O', '●', '●', '●', '●', '●', '●', '●'],
+               ['O', 'O', '●', '●', ' ', ' ', ' ', '●', '●'],
+               ['O', ' ', ' ', ' ', ' ', '●', ' ', ' ', ' '],
+               [' ', ' ', ' ', ' ', '●', ' ', ' ', ' ', ' '],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
+               ['O', 'O', ' ', 'O', 'O', 'O', 'O', 'O', '●'],
+               ['O', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
+    return matrice
 
 
-def Fonction_Matrice_fin_partie():
-    Matrice_fin_partie = [['●', ' ', ' ', '●', ' ', 'O', 'O', 'O', '●'],
-                                ['●', ' ', ' ', 'O', ' ', ' ', ' ', 'O', '●'],
-                                ['O', ' ', '●', ' ', ' ', ' ', ' ', ' ', ' '],
-                                ['O', '●', ' ', ' ', '●', ' ', 'O', ' ', ' '],
-                                [' ', ' ', ' ', 'O', 'O', ' ', ' ', ' ', 'O'],
-                                [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                                [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
-                                ['O', 'O', ' ', ' ', 'O', 'O', ' ', ' ', 'O'],
-                                ['O', ' ', 'O', 'O', 'O', 'O', ' ', 'O', 'O']]
-    return Matrice_fin_partie
+def fonction_matrice_fin_partie():
+    matrice = [['●', ' ', ' ', '●', ' ', 'O', 'O', 'O', '●'],
+               ['●', ' ', ' ', 'O', ' ', ' ', ' ', 'O', '●'],
+               ['O', ' ', '●', ' ', ' ', ' ', ' ', ' ', ' '],
+               ['O', '●', ' ', ' ', '●', ' ', 'O', ' ', ' '],
+               [' ', ' ', ' ', 'O', 'O', ' ', ' ', ' ', 'O'],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
+               ['O', 'O', ' ', ' ', 'O', 'O', ' ', ' ', 'O'],
+               ['O', ' ', 'O', 'O', 'O', 'O', ' ', 'O', 'O']]
+    return matrice
 
 
-def Fonction_Matrice_debut_partie():
-    Matrice_debut_partie = [['●', '●', '●', '●', '●', '●', '●', '●', '●'],
-                            ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
-                            ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
-                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                            ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
-                            ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
-                            ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
-    return Matrice_debut_partie
+def fonction_matrice_debut_partie():
+    matrice = [['●', '●', '●', '●', '●', '●', '●', '●', '●'],
+               ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
+               ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+               [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+               ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+               ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+               ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
+    return matrice
 
 
-Matrice_debut_partie = Fonction_Matrice_debut_partie()
-Matrice_milieu_partie = Fonction_Matrice_milieu_partie()
-Matrice_fin_partie = Fonction_Matrice_fin_partie()
+Matrice_debut_partie = fonction_matrice_debut_partie()
+Matrice_milieu_partie = fonction_matrice_milieu_partie()
+Matrice_fin_partie = fonction_matrice_fin_partie()
 Alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
             'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -84,10 +84,10 @@ def afficher_table(table, alphabet, tour_du_joueur="<soon>"):  # Affiche une tab
     # ╔═══════════════════════════════════════╗╔════════════════════════╗
     # ║     1   2   3   4   5   6   7   8   9 ║║     Projet Bermude     ║
     # ║   ╔═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╝╚════════════════════════╝
-    print("╔═════" + "".join(["══" for x in range(1, taille_table*2)]) + "╗╔════════════════════════╗")
+    print("╔═════" + "".join(["══" for _ in range(1, taille_table * 2)]) + "╗╔════════════════════════╗")
     print("║     " + "   ".join([str(indication_coor) for indication_coor in range(1, taille_table + 1)]) +
           " ║║     Projet Bermude     ║")
-    print("║   ╔" + "╤".join(["═══" for x in range(1, taille_table+1)]) + "╝╚════════════════════════╝")
+    print("║   ╔" + "╤".join(["═══" for _ in range(1, taille_table + 1)]) + "╝╚════════════════════════╝")
 
     for lignes in range(taille_table):
         print("║ " + alphabet[lignes] + " ║ " +
@@ -95,10 +95,10 @@ def afficher_table(table, alphabet, tour_du_joueur="<soon>"):  # Affiche une tab
         # ║ C ║ ● │ ● │ ● │ ● │ ● │ ● │ ● │ ● │ ● │
 
         afficher_table_colonne_2(lignes, table, tour_du_joueur, nb_pions_noir, nb_pion_blanc)
-        if lignes == taille_table-1:  # ║   ╟───┼───┼───┼───┼───┼───┼───┼───┼───┤
-            print("╚═══╝" + "┴".join(["───" for x in range(1, taille_table + 1)]) + "┘")
+        if lignes == taille_table - 1:  # ║   ╟───┼───┼───┼───┼───┼───┼───┼───┼───┤
+            print("╚═══╝" + "┴".join(["───" for _ in range(1, taille_table + 1)]) + "┘")
         else:  # ╚═══╝───┴───┴───┴───┴───┴───┴───┴───┴───┘
-            print("║   ╟" + "┼".join(["───" for x in range(1, taille_table + 1)]) + "┤")
+            print("║   ╟" + "┼".join(["───" for _ in range(1, taille_table + 1)]) + "┤")
 
 
 def saisir_nombre(nb_minimum, nb_maximum):  # demande a l'utilisateur de saisir un nombre tant qu'il n'est pas valide
@@ -145,12 +145,12 @@ def saisir_coordonees(grille, text_additionel=""):
         if est_dans_grille(ligne, colonne, grille):
             return conversion_coordonees(ligne, colonne)
         print("Syntaxe correcte mais coordonée invalide (Coordonnée minimale A1 et maximale",
-              "".join(Alphabet[len(grille)-1] + str(len(grille)) + ")."))
+              "".join(Alphabet[len(grille) - 1] + str(len(grille)) + ")."))
 
 
 def conversion_coordonees(ligne, colonne):
     # Converti les coordonnées entrées en fonction de leur indice dans la matrice (D3 -> (3, 2))
-    ligne = ord(ligne)-65
+    ligne = ord(ligne) - 65
     colonne = colonne - 1
     return ligne, colonne
 
@@ -179,7 +179,7 @@ def direction_valide(position_depart, destination):  # Verifie si les coordonée
     if destination == position_depart:
         return False
     if destination[1] == position_depart[1] or destination[0] == position_depart[0] or \
-            abs(position_depart[0]-destination[0]) == abs(position_depart[1]-destination[1]):  # H or V or D
+            abs(position_depart[0] - destination[0]) == abs(position_depart[1] - destination[1]):  # H or V or D
         return True
     return False
 
@@ -262,21 +262,21 @@ def coordonees_pion_avant(position_depart, destination):
     # Renvoie les coordonnées du pion avant le pion destinataire (dans l'axe du pion de départ)
     orientation = detection_orientation(position_depart, destination)
     if orientation == "VB":
-        return destination[0]-1, destination[1]
+        return destination[0] - 1, destination[1]
     elif orientation == "VH":
-        return destination[0]+1, destination[1]
+        return destination[0] + 1, destination[1]
     elif orientation == "HD":
-        return destination[0], destination[1]-1
+        return destination[0], destination[1] - 1
     elif orientation == "HG":
-        return destination[0], destination[1]+1
+        return destination[0], destination[1] + 1
     elif orientation == "DDB":
-        return destination[0]-1, destination[1]-1
+        return destination[0] - 1, destination[1] - 1
     elif orientation == "DDH":
-        return destination[0]+1, destination[1]-1
+        return destination[0] + 1, destination[1] - 1
     elif orientation == "DGB":
-        return destination[0]-1, destination[1]+1
+        return destination[0] - 1, destination[1] + 1
     elif orientation == "DGH":
-        return destination[0]+1, destination[1]+1
+        return destination[0] + 1, destination[1] + 1
 
 
 def coordonees_pion_apres(position_depart, destination):
@@ -312,20 +312,24 @@ def set_element_case(variable, nouveau, grille):
 
 def pion_est_ennemi(position_depart, destination, grille):
     # Vérifie que deux pions sont ennemis et qu'il y a bien un pion à la position destination.
-    if element_case(position_depart, grille) != element_case(destination, grille) and\
+    if element_case(position_depart, grille) != element_case(destination, grille) and \
             element_case(destination, grille) != " ":
         return True
     return False
 
 
-def fin_partie(grille):
+def fin_partie(grille, affichage=True):
     # Vérifie si la partie est finie ou non
     nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
     if nb_pions_noir < 6 or nb_pion_blanc < 6:
         if nb_pions_noir < 6:
-            return True, print("le joueur \"●\" à gagner !")
+            if affichage:
+                return True, print("le joueur \"●\" à gagner !")
+            return True
         elif nb_pion_blanc < 6:
-            return True, print("le joueur \"O\" à gagner !")
+            if affichage:
+                return True, print("le joueur \"O\" à gagner !")
+            return True
     return False
 
 
@@ -357,7 +361,7 @@ def deplacement_retournement(position_depart, destination, grille, pas_de_deplac
                         set_element_case(destination, element_case(position_depart, grille), grille)
                         set_element_case(pion_avant_destination, element_case(position_depart, grille), grille)
                         set_element_case(position_depart, " ", grille)
-                    return True   # Renvoie True si le déplacement est valide ou a été effectué.
+                    return True  # Renvoie True si le déplacement est valide ou a été effectué.
     return False
 
 
@@ -382,58 +386,77 @@ def demander_pion_depart(pion_joueur, grille):  # sous fonction de tour_joueur()
     return pion_depart
 
 
-def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille):
+def tour_joueur_dp_retournement(position_destination, pion_joueur, assistant, grille):
     # sous fonction de tour_joueur(). Enchainement déplacement par retournement
-    if not prise_elimination_avant:  # sera utile pour atelier 4, explication dans print() à la fin de la fonction.
-        tour_valide = True
-        print("Vous avez fait un déplacement par retournement.")
-        afficher_table(grille, Alphabet, pion_joueur)
+    print("Vous avez fait un déplacement par retournement.")
+    afficher_table(grille, Alphabet, pion_joueur)
 
-        pion_depart = position_destination
-        if assistant:
-            liste_deplacement_possible = affichage_assistant_deplacement(
-                assistant_deplacement_retournement(pion_joueur, grille, pion_depart), "retournement")
-        else:
-            liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+    pion_depart = position_destination
 
-        if len(liste_deplacement_possible) > 0:
-            print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
-            position_destination = saisir_coordonees(grille, "de la case de destination")
+    liste_dep_retournement = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+    if assistant:
+        liste_deplacement_possible = affichage_assistant_deplacement(liste_dep_retournement, "retournement")
 
-            while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
-                # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
-                afficher_table(grille, Alphabet, pion_joueur)
-                pion_depart = position_destination
+    if len(liste_deplacement_possible) > 0:
+        print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
+        position_destination = saisir_coordonees(grille, "de la case de destination")
 
-                if assistant:
-                    liste_deplacement_possible = affichage_assistant_deplacement(
-                        assistant_deplacement_retournement(pion_joueur, grille, pion_depart), "retournement")
-                else:
-                    liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+        while deplacement_retournement(pion_depart, position_destination, grille) and len(
+                liste_deplacement_possible) > 0:
+            # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
+            afficher_table(grille, Alphabet, pion_joueur)
+            pion_depart = position_destination
 
-                if len(liste_deplacement_possible) > 0:
-                    position_destination = saisir_coordonees(grille, "de la case de destination")
-                else:
-                    print("Aucun déplacement possible.")
-        else:
-            print("Aucun déplacement possible.")
-        return tour_valide
-    print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
+            liste_dep_retournement = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+            if assistant:
+                liste_deplacement_possible = affichage_assistant_deplacement(liste_dep_retournement, "retournement")
+
+            if len(liste_deplacement_possible) > 0:
+                position_destination = saisir_coordonees(grille, "de la case de destination")
+            else:
+                print("Aucun déplacement possible.")
+    else:
+        print("Aucun déplacement possible.")
 
 
-def tour_joueur_dp_robot(liste_deplacement, grille):
+def tour_robot_dp_retournement(liste_deplacement, grille):
     deplacement_choisi = choice(liste_deplacement)
     pion_depart = deplacement_choisi[0]
     destination = deplacement_choisi[1]
 
-    print(conversion_coordonees_inv(pion_depart[0], pion_depart[1]), conversion_coordonees_inv(destination[0], destination[1]))
     liste_dep_retour = assistant_deplacement_retournement(grille[pion_depart[0]][pion_depart[1]], grille, pion_depart)
     while deplacement_retournement(pion_depart, destination, grille) and len(liste_dep_retour) > 0:
+        print(conversion_coordonees_inv(pion_depart[0], pion_depart[1]),
+              conversion_coordonees_inv(destination[0], destination[1]))
         pion_depart = destination
-        liste_dep_retour = assistant_deplacement_retournement(grille[pion_depart[0]][pion_depart[1]], grille, pion_depart)
+        liste_dep_retour = assistant_deplacement_retournement(element_case(pion_depart, grille), grille, pion_depart)
+        if len(liste_dep_retour) > 0:
+            deplacement_choisi = choice(liste_dep_retour)
+            destination = deplacement_choisi[1]
 
 
-def tour_joueur(grille, pion_joueur, assistant, prise_elimination_avant=False, robot=False):  # Effectue le tour d'un joueur
+def tour_robot_dp_elimination(liste_deplacement, grille):
+    deplacement = choice(liste_deplacement)
+    pion_depart = deplacement[0]
+    position_destination = deplacement[1]
+    deplacement_elimination(pion_depart, position_destination, grille)
+    print(conversion_coordonees_inv(pion_depart[0], pion_depart[1]),
+          conversion_coordonees_inv(position_destination[0], position_destination[1]))
+
+
+def tour_robot_choix_type_deplacement(liste_dep_retour, liste_dep_elim):
+    if len(liste_dep_retour) > 0 and len(liste_dep_elim) > 0:
+        # l'ordi choisi aléatoirement si les deux types de déplacement sont disponible
+        choix_type_deplacement = randrange(0, 2)
+    else:
+        if not len(liste_dep_retour) > 0:
+            choix_type_deplacement = 0
+        elif not len(liste_dep_elim) > 0:
+            choix_type_deplacement = 1
+    return choix_type_deplacement
+
+
+def tour_lancer(grille, pion_joueur, assistant, robot=False):  # Effectue le tour d'un joueur
     afficher_table(grille, Alphabet, pion_joueur)
 
     liste_dep_elim = assistant_deplacement_elimination(pion_joueur, grille)
@@ -442,50 +465,33 @@ def tour_joueur(grille, pion_joueur, assistant, prise_elimination_avant=False, r
     if assistant and not robot:  # Affiche les déplacements possibles si assistant est activé
         affichage_assistant_deplacement(liste_dep_elim, "élimination")
         affichage_assistant_deplacement(liste_dep_retour, "retournement")
+
     tour_valide = False
     while not tour_valide:
         if robot:
-            if len(liste_dep_retour) > 0 and len(liste_dep_elim) > 0:
-                choix_type_deplacement = randrange(0, 2)
-            else:
-                if not len(liste_dep_retour) > 0 or prise_elimination_avant:
-                    choix_type_deplacement = 0
-                elif not len(liste_dep_elim) > 0:
-                    choix_type_deplacement = 1
-
+            choix_type_deplacement = tour_robot_choix_type_deplacement(liste_dep_retour, liste_dep_elim)
             if choix_type_deplacement == 0:  # deplacement_elimination
                 print("robot elimination")
-                deplacement = choice(liste_dep_elim)
-                tour_valide, prise_elimination_avant = True, True
-                pion_depart = deplacement[0]
-                position_destination = deplacement[1]
-                deplacement_elimination(pion_depart, position_destination, grille)
-                robot_probleme = False
-
+                tour_robot_dp_elimination(liste_dep_elim, grille)
+                tour_valide = True
             elif choix_type_deplacement == 1 and len(liste_dep_retour) > 0:  # deplacement_retournement
                 print("robot retournement")
+                tour_robot_dp_retournement(liste_dep_retour, grille)
                 tour_valide = True
-                tour_joueur_dp_robot(liste_dep_retour, grille)
-                robot_probleme, prise_elimination_avant = False, False
-
-            else:
-                tour_valide, robot_probleme = True, True
-                print("ROBOT : Aucun déplacement disponible !")
-            afficher_table(grille, Alphabet, pion_joueur)
-            return robot_probleme, prise_elimination_avant
         else:
             pion_depart = demander_pion_depart(pion_joueur, grille)
             position_destination = saisir_coordonees(grille, "de la case de destination")
             if deplacement_elimination(pion_depart, position_destination, grille):  # deplacement_elimination
                 print("Vous avez fait un déplacement par élimination.")
-                tour_valide, prise_elimination_avant = True, True
+                tour_valide = True
             elif deplacement_retournement(pion_depart, position_destination, grille):  # deplacement_retournement
-                tour_valide = tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille)
+                tour_joueur_dp_retournement(position_destination, pion_joueur, assistant, grille)
+                tour_valide = True
             else:  # Déplacement demandé invalide
                 print("Merci de respécter les règles de déplacement.")
                 tour_valide = False
+
     afficher_table(grille, Alphabet, pion_joueur)
-    return False, prise_elimination_avant
 
 
 def assistant_deplacement_convertir_joueur(pion_joueur):
@@ -508,12 +514,12 @@ def assistant_deplacement_elimination(pion_joueur, grille):  # créé une liste 
     return liste_deplacement_possible
 
 
-def assistant_deplacement_retournement(pion_joueur, grille, pion_depart_force=""):
+def assistant_deplacement_retournement(pion_joueur, grille, pion_depart_force=()):
     # créé une liste de déplacements par retournement
     position_pions = coordonees_pions_joueur(grille)
     liste_deplacement_possible = []
     joueur, autre_joueur = assistant_deplacement_convertir_joueur(pion_joueur)
-    if pion_depart_force == "":
+    if pion_depart_force == ():
         for pions in position_pions[joueur]:
             liste_deplacement_possible = assistant_determiner_retournement(
                 liste_deplacement_possible, position_pions, autre_joueur, pions, grille)
@@ -533,8 +539,8 @@ def assistant_determiner_retournement(liste_deplacement_possible, position_pions
     return liste_deplacement_possible
 
 
-def affichage_assistant_deplacement(liste, type):  # affiche les déplacements créés par l'assistant
-    print('\nles déplacements par {0} possible sont :'.format(type))
+def affichage_assistant_deplacement(liste, type_deplacement):  # affiche les déplacements créés par l'assistant
+    print('\nles déplacements par {0} possible sont :'.format(type_deplacement))
     for element in liste:
         pion1 = conversion_coordonees_inv(element[0][0], element[0][1])
         pion2 = conversion_coordonees_inv(element[1][0], element[1][1])
@@ -544,20 +550,39 @@ def affichage_assistant_deplacement(liste, type):  # affiche les déplacements c
 
 def conversion_coordonees_inv(ligne, colonne):
     # Converti les coordonnées entrées ( (3, 2) -> ('D', 3) )
-    ligne = chr(ligne+65)
+    ligne = chr(ligne + 65)
     colonne = colonne + 1
     return ligne, colonne
 
 
-def partie(grille, assistant):
-    robot, robot1_probleme, robot2_probleme, prise_elim_avant1, prise_elim_avant2 = True, False, False, False, False
-    while not fin_partie(grille) and not robot1_probleme and not robot2_probleme:
-            if robot:
-                robot1_problemen, prise_elim_avant1 = tour_joueur(grille, "O", assistant, prise_elim_avant1, robot=True)
-                print("-----------------------------------------------------------")
-                if not fin_partie(grille):
-                    robot2_probleme, prise_elim_avant2 = tour_joueur(grille, "●", assistant, prise_elim_avant2, robot=True)
-                    print("-----------------------------------------------------------")
+def partie_ordi_ordi(grille, assistant):
+    while not fin_partie(grille):
+        print("=============================================================================================")
+        tour_lancer(grille, "O", assistant, robot=True)
+        print("-----------------------------------------------------------")
+        if not fin_partie(grille, affichage=False):
+            tour_lancer(grille, "●", assistant, robot=True)
+            print("=============================================================================================")
+
+
+def partie_joueur_ordi(grille, assistant):
+    while not fin_partie(grille):
+        print("=============================================================================================")
+        tour_lancer(grille, "O", assistant)
+        print("-----------------------------------------------------------")
+        if not fin_partie(grille, affichage=False):
+            tour_lancer(grille, "●", assistant, robot=True)
+            print("=============================================================================================")
+
+
+def partie_joueur_joueur(grille, assistant):
+    while not fin_partie(grille):
+        print("=============================================================================================")
+        tour_lancer(grille, "O", assistant)
+        print("-----------------------------------------------------------")
+        if not fin_partie(grille, affichage=False):
+            tour_lancer(grille, "●", assistant)
+            print("=============================================================================================")
 
 
 def test_creer_matrice():  # Teste la fonction "cree_matrice"
@@ -572,11 +597,11 @@ def test_creer_matrice():  # Teste la fonction "cree_matrice"
 def test_est_dans_grille():  # Teste la fonction "est_dans_grille"
     grille = creer_matrice(randint(1, 10))
     assert est_dans_grille("A", 1, grille), "Vérifie les coordonnées minimales de la grille"
-    assert est_dans_grille(Alphabet[len(grille)-1], len(grille), grille), \
+    assert est_dans_grille(Alphabet[len(grille) - 1], len(grille), grille), \
         "Vérifie les coordonnées maximales de la grille"
     assert not est_dans_grille(Alphabet[len(grille)], 1, grille), \
         "Vérifie que la ligne entrée ne peut pas être supérieur à la taille de la grille"
-    assert not est_dans_grille("A", len(grille)+1, grille), \
+    assert not est_dans_grille("A", len(grille) + 1, grille), \
         "Vérifie que la colonne entrée ne peut pas être supérieur à la taille de la grille"
     assert not est_dans_grille("A", 0, grille), "Vérifie que la colonne entrée ne peut pas être inférieur à \"1\""
 
@@ -595,7 +620,7 @@ def test_saisir_coordonnees():  # Teste la fonction "verification_syntaxe_saisir
 def test_saisir_nombre():  # Teste la fonction "verification_nombre_saisie"
     nb_minimum = randint(0, 5)
     nb_maximum = randint(5, 9)
-    assert not verification_nombre_saisie(Alphabet[randint(0, 25)], nb_minimum, nb_maximum),\
+    assert not verification_nombre_saisie(Alphabet[randint(0, 25)], nb_minimum, nb_maximum), \
         "Seuls les nombres sont autorisés"
     assert verification_nombre_saisie(nb_minimum, nb_minimum, nb_maximum), "Le minimum doit être inclut"
     assert verification_nombre_saisie(nb_minimum, nb_minimum, nb_maximum), "Le maximum doit être inclut"
@@ -656,7 +681,7 @@ def test_emplacement_libre_entre():  # Teste la fonction "emplacement_libre_entr
     assert not emplacement_libre_entre(conversion_coordonees("H", 9), conversion_coordonees("B", 3),
                                        Matrice_milieu_partie), "Emplacement libre entre orientation DGH"
     assert emplacement_libre_entre(conversion_coordonees("H", 2), conversion_coordonees("E", 5),
-                                   Matrice_milieu_partie),  "Emplacement libre entre orientation DDH"
+                                   Matrice_milieu_partie), "Emplacement libre entre orientation DDH"
     assert not emplacement_libre_entre(conversion_coordonees("E", 5), conversion_coordonees("B", 8),
                                        Matrice_milieu_partie), "Emplacement libre entre orientation DDH"
     assert emplacement_libre_entre(conversion_coordonees("C", 9), conversion_coordonees("H", 4),
@@ -670,9 +695,9 @@ def test_emplacement_libre_entre():  # Teste la fonction "emplacement_libre_entr
 
 
 def test_pion_est_ennemi():  # Teste la fonction "pion_est_ennemi"
-    assert pion_est_ennemi(conversion_coordonees("B", 7), conversion_coordonees("H", 1), Matrice_milieu_partie),\
+    assert pion_est_ennemi(conversion_coordonees("B", 7), conversion_coordonees("H", 1), Matrice_milieu_partie), \
         "Pion est ennemie"
-    assert not pion_est_ennemi(conversion_coordonees("A", 1), conversion_coordonees("B", 1), Matrice_milieu_partie),\
+    assert not pion_est_ennemi(conversion_coordonees("A", 1), conversion_coordonees("B", 1), Matrice_milieu_partie), \
         "Pion n'es pas ennemie"
 
 
@@ -698,7 +723,7 @@ def test_emplacement_libre_apres_position_depart():  # Teste la fonction "emplac
     assert not emplacement_libre_apres_position_depart(conversion_coordonees("C", 8), conversion_coordonees("A", 6),
                                                        Matrice_milieu_partie), "Emplacement libre apres orientation DGH"
     assert emplacement_libre_apres_position_depart(conversion_coordonees("D", 6), conversion_coordonees("B", 8),
-                                                   Matrice_milieu_partie),  "Emplacement libre apres orientation DDH"
+                                                   Matrice_milieu_partie), "Emplacement libre apres orientation DDH"
     assert not emplacement_libre_apres_position_depart(conversion_coordonees("E", 5), conversion_coordonees("C", 7),
                                                        Matrice_milieu_partie), "Emplacement libre apres orientation DDH"
     assert not emplacement_libre_apres_position_depart(conversion_coordonees("C", 7), conversion_coordonees("E", 5),
@@ -712,21 +737,21 @@ def test_emplacement_libre_apres_position_depart():  # Teste la fonction "emplac
 
 
 def test_coordonees_pion_avant():  # Teste la fonction "coordonees_pion_avant"
-    assert (2, 4) == coordonees_pion_avant(conversion_coordonees("E", 5), conversion_coordonees("B", 5)),\
+    assert (2, 4) == coordonees_pion_avant(conversion_coordonees("E", 5), conversion_coordonees("B", 5)), \
         "coordonees pion avant orientation VH"
-    assert (1, 8) == coordonees_pion_avant(conversion_coordonees("A", 9), conversion_coordonees("C", 9)),\
+    assert (1, 8) == coordonees_pion_avant(conversion_coordonees("A", 9), conversion_coordonees("C", 9)), \
         "coordonees pion avant orientation VB"
-    assert (1, 1) == coordonees_pion_avant(conversion_coordonees("B", 4), conversion_coordonees("B", 1)),\
+    assert (1, 1) == coordonees_pion_avant(conversion_coordonees("B", 4), conversion_coordonees("B", 1)), \
         "coordonees pion avant orientation HG"
-    assert (3, 4) == coordonees_pion_avant(conversion_coordonees("D", 1), conversion_coordonees("D", 6)),\
+    assert (3, 4) == coordonees_pion_avant(conversion_coordonees("D", 1), conversion_coordonees("D", 6)), \
         "coordonees pion avant orientation HD"
-    assert (1, 3) == coordonees_pion_avant(conversion_coordonees("D", 6), conversion_coordonees("A", 3)),\
+    assert (1, 3) == coordonees_pion_avant(conversion_coordonees("D", 6), conversion_coordonees("A", 3)), \
         "coordonees pion avant orientation DGH"
-    assert (2, 6) == coordonees_pion_avant(conversion_coordonees("E", 5), conversion_coordonees("B", 8)),\
+    assert (2, 6) == coordonees_pion_avant(conversion_coordonees("E", 5), conversion_coordonees("B", 8)), \
         "coordonees pion avant orientation DDH"
-    assert (7, 1) == coordonees_pion_avant(conversion_coordonees("E", 5), conversion_coordonees("I", 1)),\
+    assert (7, 1) == coordonees_pion_avant(conversion_coordonees("E", 5), conversion_coordonees("I", 1)), \
         "coordonees pion avant orientation DGB"
-    assert (5, 7) == coordonees_pion_avant(conversion_coordonees("A", 3), conversion_coordonees("G", 9)),\
+    assert (5, 7) == coordonees_pion_avant(conversion_coordonees("A", 3), conversion_coordonees("G", 9)), \
         "coordonees pion avant orientation DDB"
 
 
@@ -811,34 +836,41 @@ def test_coordonees_pions_joueur():
         [(6, 0), (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7), (6, 8), (7, 0), (7, 1), (7, 2), (7, 3),
          (7, 4), (7, 5), (7, 6), (7, 7), (7, 8), (8, 0), (8, 1), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7),
          (8, 8)], [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (1, 0), (1, 1), (1, 2),
-        (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7),
+                   (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5),
+                   (2, 6), (2, 7),
                    (2, 8)]), "coordonees pions joueur Matrice debut partie"
     assert coordonees_pions_joueur(Matrice_milieu_partie) == ([(1, 1), (2, 0), (2, 1), (3, 0), (6, 8), (7, 0), (7, 1),
-        (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (8, 0), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8)],
-        [(0, 0), (0, 2), (0, 4), (0, 5), (0, 6), (0, 8), (1, 0), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
-    (1, 8), (2, 2), (2, 3), (2, 7), (2, 8), (3, 5), (4, 4), (7, 8)]), "coordonees pions joueur Matrice milieu partie"
+                                                               (7, 3), (7, 4), (7, 5), (7, 6), (7, 7), (8, 0), (8, 2),
+                                                               (8, 3), (8, 4), (8, 5), (8, 6), (8, 7), (8, 8)],
+                                                              [(0, 0), (0, 2), (0, 4), (0, 5), (0, 6), (0, 8), (1, 0),
+                                                               (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
+                                                               (1, 8), (2, 2), (2, 3), (2, 7), (2, 8), (3, 5), (4, 4),
+                                                               (7, 8)]), "coordonees pions joueur Matrice milieu partie"
     assert coordonees_pions_joueur(Matrice_fin_partie) == ([(0, 5), (0, 6), (0, 7), (1, 3), (1, 7), (2, 0), (3, 0),
-        (3, 6), (4, 3), (4, 4), (4, 8), (6, 8), (7, 0), (7, 1), (7, 4), (7, 5), (7, 8), (8, 0), (8, 2), (8, 3), (8, 4),
-        (8, 5), (8, 7), (8, 8)], [(0, 0), (0, 3), (0, 8), (1, 0), (1, 8), (2, 2), (3, 1), (3, 4)]), \
+                                                            (3, 6), (4, 3), (4, 4), (4, 8), (6, 8), (7, 0), (7, 1),
+                                                            (7, 4), (7, 5), (7, 8), (8, 0), (8, 2), (8, 3), (8, 4),
+                                                            (8, 5), (8, 7), (8, 8)],
+                                                           [(0, 0), (0, 3), (0, 8), (1, 0), (1, 8), (2, 2), (3, 1),
+                                                            (3, 4)]), \
         "coordonees pions joueur Matrice fin partie"
 
 
 def test_coordonees_pion_apres():  # Teste la fonction "coordonees_pion_avant"
-    assert (1, 2) == coordonees_pion_apres(conversion_coordonees("I", 3), conversion_coordonees("C", 3)),\
+    assert (1, 2) == coordonees_pion_apres(conversion_coordonees("I", 3), conversion_coordonees("C", 3)), \
         "coordonees pion avant orientation VH"
-    assert (5, 4) == coordonees_pion_apres(conversion_coordonees("D", 5), conversion_coordonees("E", 5)),\
+    assert (5, 4) == coordonees_pion_apres(conversion_coordonees("D", 5), conversion_coordonees("E", 5)), \
         "coordonees pion avant orientation VB"
-    assert (3, 3) == coordonees_pion_apres(conversion_coordonees("D", 7), conversion_coordonees("D", 5)),\
+    assert (3, 3) == coordonees_pion_apres(conversion_coordonees("D", 7), conversion_coordonees("D", 5)), \
         "coordonees pion avant orientation HG"
-    assert (0, 4) == coordonees_pion_apres(conversion_coordonees("A", 1), conversion_coordonees("A", 4)),\
+    assert (0, 4) == coordonees_pion_apres(conversion_coordonees("A", 1), conversion_coordonees("A", 4)), \
         "coordonees pion avant orientation HD"
-    assert (1, 1) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("C", 3)),\
+    assert (1, 1) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("C", 3)), \
         "coordonees pion avant orientation DGH"
-    assert (0, 8) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("B", 8)),\
+    assert (0, 8) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("B", 8)), \
         "coordonees pion avant orientation DDH"
-    assert (8, 0) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("H", 2)),\
+    assert (8, 0) == coordonees_pion_apres(conversion_coordonees("E", 5), conversion_coordonees("H", 2)), \
         "coordonees pion avant orientation DGB"
-    assert (5, 4) == coordonees_pion_apres(conversion_coordonees("B", 1), conversion_coordonees("E", 4)),\
+    assert (5, 4) == coordonees_pion_apres(conversion_coordonees("B", 1), conversion_coordonees("E", 4)), \
         "coordonees pion avant orientation DDB"
 
 
@@ -920,8 +952,70 @@ def afficher_sous_menu_tour_joueur(assistant):  # affichage du sous menu tour d'
     ''')
 
 
-def sous_menu_tour_joueur():
-    assistant = True
+def afficher_sous_menu_partie(assistant):  # affichage du sous menu tour d'un joueur sur la console
+    print(f'''
+    ┌─────────────────────────────────────────────┐
+      N°           Lancer une partie
+    └─────────────────────────────────────────────┘
+                  assistant : {assistant}
+     Permets d'afficher les déplacements possibles. 
+     Utile pour vérifier les fonctions déplacement. 
+     Paramètre dans sous_menu_tour_joueur().
+
+     [01]   Contre l'ordinateur
+     [02]   Contre un autre joueur
+     [03]   Deux ordinateurs
+     [04]   Retour menu
+
+    ''')
+
+
+def afficher_sous_menu_choix_matrice(qui_contre):
+    print(f'''
+    ┌─────────────────────────────────────────────┐
+      N°           Lancer une partie
+    └─────────────────────────────────────────────┘
+        {qui_contre}
+     [01]   Grille début partie
+     [02]   Grille milieu partie
+     [03]   grille fin partie
+     [04]   Retour menu
+
+    ''')
+
+
+def sous_menu_choix_matrice(qui_contre, assistant):
+    afficher_sous_menu_choix_matrice(qui_contre)
+    selection = saisir_nombre(nb_minimum=1, nb_maximum=4)
+    clear(80)
+    if selection == 1:
+        return fonction_matrice_debut_partie()
+    elif selection == 2:
+        return fonction_matrice_milieu_partie()
+    elif selection == 3:
+        return fonction_matrice_fin_partie()
+    elif selection == 4:
+        sous_menu_partie(assistant)
+
+
+def sous_menu_partie(assistant):
+    afficher_sous_menu_partie(assistant)
+    selection = saisir_nombre(nb_minimum=1, nb_maximum=4)
+    clear(80)
+    if selection == 1:
+        matrice = sous_menu_choix_matrice("    Joueur - Ordinateur", assistant)
+        partie_joueur_ordi(matrice, assistant)
+    elif selection == 2:
+        matrice = sous_menu_choix_matrice("    Joueur - Joueur    ", assistant)
+        partie_joueur_joueur(matrice, assistant)
+    elif selection == 3:
+        matrice = sous_menu_choix_matrice("Ordinateur - Ordinateur", assistant)
+        partie_ordi_ordi(matrice, assistant)
+    elif selection == 4:
+        menu()
+
+
+def sous_menu_tour_joueur(assistant):
     afficher_sous_menu_tour_joueur(assistant)
     selection = saisir_nombre(nb_minimum=1, nb_maximum=3)
     clear(80)
@@ -932,10 +1026,11 @@ def sous_menu_tour_joueur():
     elif selection == 3:
         menu()
     table_a_joueur = Matrice_fin_partie
-    tour_joueur(table_a_joueur, pion_joueur, assistant)
+    tour_lancer(table_a_joueur, pion_joueur, assistant)
 
 
 def menu():  # centralise et exécute les fonctions appropriées selon le numéro sélectionné
+    assistant = True
     afficher_menu()
     numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=9)
     clear(80)
@@ -946,10 +1041,9 @@ def menu():  # centralise et exécute les fonctions appropriées selon le numér
     elif numero_selectionne == 5:
         saisir_coordonees(creer_matrice(taille=9))
     elif numero_selectionne == 6:
-        sous_menu_tour_joueur()
+        sous_menu_tour_joueur(assistant)
     elif numero_selectionne == 7:
-        Matrice = Fonction_Matrice_debut_partie()
-        partie(Matrice, assistant=True)
+        sous_menu_partie(assistant)
     elif numero_selectionne == 8:
         lancer_testes_fonctions()
     elif numero_selectionne == 9:

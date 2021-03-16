@@ -1,5 +1,7 @@
 # import Bermudes
 # from Bermudes import *
+from random import randrange
+
 coordonnees_des_cases = {
     (0, 0): "A1", (0, 1): "A2", (0, 2): "A3", (0, 3): "A4", (0, 4): "A5", (0, 5): "A6", (0, 6): "A7", (0, 7): "A8",
     (0, 8): "A9", (0, 9): "A10", (1, 0): "B1", (1, 1): "B2", (1, 2): "B3", (1, 3): "B4", (1, 4): "B5", (1, 5): "B6",
@@ -65,8 +67,9 @@ coordonnees_des_cases = {
 #     return coor_pions_noir, coor_pions_blanc
 
 
-print(ord("A"))
-
+while True:
+    print(randrange(0, 2))
+# print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
 
 # elif deplacement_retournement(pion_depart, position_destination, grille):
 # nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
@@ -84,3 +87,77 @@ print(ord("A"))
 #                    nb_pions_noir=nb_pions_noir, nb_pion_blanc=nb_pion_blanc)
 #     pion_depart = position_destination
 #     position_destination = saisir_coordonees(grille, " de la case de destination")
+
+# def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille, deplacement_robot, robot=False):
+#     # sous fonction de tour_joueur(). Enchainement déplacement par retournement
+#     if not prise_elimination_avant:  # sera utile pour atelier 4, explication dans print() à la fin de la fonction.
+#         tour_valide = True
+#         print("Vous avez fait un déplacement par retournement.")
+#         afficher_table(grille, Alphabet, pion_joueur)
+#
+#         pion_depart = position_destination
+#         liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+#         if assistant:
+#             affichage_assistant_deplacement(liste_deplacement_possible, "retournement")
+#
+#         if len(liste_deplacement_possible) > 0:
+#             if not robot:
+#                 print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
+#                 position_destination = saisir_coordonees(grille, "de la case de destination")
+#             else:
+#                 deplacement_choisi = random.choice(liste_deplacement_possible)
+#                 position_destination = deplacement_choisi[1]
+#             while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
+#                 # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
+#                 afficher_table(grille, Alphabet, pion_joueur)
+#                 pion_depart = position_destination
+#
+#                 liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+#                 if assistant:
+#                     affichage_assistant_deplacement(liste_deplacement_possible, "retournement")
+#
+#                 if len(liste_deplacement_possible) > 0 and not robot:
+#                     position_destination = saisir_coordonees(grille, "de la case de destination")
+#                 elif len(liste_deplacement_possible) > 0 and robot:
+#                     deplacement_choisi = random.choice(liste_deplacement_possible)
+#                     position_destination = deplacement_choisi[1]
+#                 else:
+#                     print("Aucun déplacement possible.")
+#         else:
+#             print("Aucun déplacement possible.")
+#         return tour_valide
+#     print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
+
+
+
+# def tour_joueur_dp_joueur(position_destination, pion_joueur, assistant, grille):
+#     # sous fonction de tour_joueur(). Enchainement déplacement par retournement
+#     tour_valide = True
+#     print("Vous avez fait un déplacement par retournement.")
+#     afficher_table(grille, Alphabet, pion_joueur)
+#
+#     pion_depart = position_destination
+#     liste_dep_retournement = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+#     if assistant:
+#         liste_deplacement_possible = affichage_assistant_deplacement(liste_dep_retournement, "retournement")
+#
+#     if len(liste_deplacement_possible) > 0:
+#         print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
+#         position_destination = saisir_coordonees(grille, "de la case de destination")
+#
+#         while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
+#             # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
+#             afficher_table(grille, Alphabet, pion_joueur)
+#             pion_depart = position_destination
+#
+#             liste_dep_retournement = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
+#             if assistant:
+#                 liste_deplacement_possible = affichage_assistant_deplacement(liste_dep_retournement, "retournement")
+#
+#             if len(liste_deplacement_possible) > 0:
+#                 position_destination = saisir_coordonees(grille, "de la case de destination")
+#             else:
+#                 print("Aucun déplacement possible.")
+#     else:
+#         print("Aucun déplacement possible.")
+#     return tour_valide

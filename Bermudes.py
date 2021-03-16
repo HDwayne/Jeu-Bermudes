@@ -1,39 +1,49 @@
 # -*- coding: utf-8 -*-
 from random import *
 
-Matrice_debut_partie = [['●', '●', '●', '●', '●', '●', '●', '●', '●'],
-                    ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
-                    ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
-                    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                    ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
-                    ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
-                    ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
+
+def Fonction_Matrice_milieu_partie():
+    Matrice_milieu_partie = [['●', ' ', '●', ' ', '●', '●', '●', ' ', '●'],
+                            ['●', 'O', '●', '●', '●', '●', '●', '●', '●'],
+                            ['O', 'O', '●', '●', ' ', ' ', ' ', '●', '●'],
+                            ['O', ' ', ' ', ' ', ' ', '●', ' ', ' ', ' '],
+                            [' ', ' ', ' ', ' ', '●', ' ', ' ', ' ', ' '],
+                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
+                            ['O', 'O', ' ', 'O', 'O', 'O', 'O', 'O', '●'],
+                            ['O', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
+    return Matrice_milieu_partie
 
 
-Matrice_milieu_partie = [['●', ' ', '●', ' ', '●', '●', '●', ' ', '●'],
-                        ['●', 'O', '●', '●', '●', '●', '●', '●', '●'],
-                        ['O', 'O', '●', '●', ' ', ' ', ' ', '●', '●'],
-                        ['O', ' ', ' ', ' ', ' ', '●', ' ', ' ', ' '],
-                        [' ', ' ', ' ', ' ', '●', ' ', ' ', ' ', ' '],
-                        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
-                        ['O', 'O', ' ', 'O', 'O', 'O', 'O', 'O', '●'],
-                        ['O', ' ', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
+def Fonction_Matrice_fin_partie():
+    Matrice_fin_partie = [['●', ' ', ' ', '●', ' ', 'O', 'O', 'O', '●'],
+                                ['●', ' ', ' ', 'O', ' ', ' ', ' ', 'O', '●'],
+                                ['O', ' ', '●', ' ', ' ', ' ', ' ', ' ', ' '],
+                                ['O', '●', ' ', ' ', '●', ' ', 'O', ' ', ' '],
+                                [' ', ' ', ' ', 'O', 'O', ' ', ' ', ' ', 'O'],
+                                [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                                [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
+                                ['O', 'O', ' ', ' ', 'O', 'O', ' ', ' ', 'O'],
+                                ['O', ' ', 'O', 'O', 'O', 'O', ' ', 'O', 'O']]
+    return Matrice_fin_partie
 
 
-Matrice_fin_partie = [['●', ' ', ' ', '●', ' ', 'O', 'O', 'O', '●'],
-                        ['●', ' ', ' ', 'O', ' ', ' ', ' ', 'O', '●'],
-                        ['O', ' ', '●', ' ', ' ', ' ', ' ', ' ', ' '],
-                        ['O', '●', ' ', ' ', '●', ' ', 'O', ' ', ' '],
-                        [' ', ' ', ' ', 'O', 'O', ' ', ' ', ' ', 'O'],
-                        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-                        [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'O'],
-                        ['O', 'O', ' ', ' ', 'O', 'O', ' ', ' ', 'O'],
-                        ['O', ' ', 'O', 'O', 'O', 'O', ' ', 'O', 'O']]
+def Fonction_Matrice_debut_partie():
+    Matrice_debut_partie = [['●', '●', '●', '●', '●', '●', '●', '●', '●'],
+                            ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
+                            ['●', '●', '●', '●', '●', '●', '●', '●', '●'],
+                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+                            ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+                            ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+                            ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O']]
+    return Matrice_debut_partie
 
 
+Matrice_debut_partie = Fonction_Matrice_debut_partie()
+Matrice_milieu_partie = Fonction_Matrice_milieu_partie()
+Matrice_fin_partie = Fonction_Matrice_fin_partie()
 Alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
             'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -328,7 +338,6 @@ def deplacement_elimination(position_depart, destination, grille, pas_de_deplace
                 # Verifie qu'il y a bien une case vide entre les deux pions et
                 # que les cases (s'il y en a plusieur) entre les deux pions sont toutes vides
                 if not pas_de_deplacement:  # Ne réalise pas les déplacements dans le cas des asserts
-                    # TODO HPROBLEME: Matrice_fin_partie modifié en même temps !
                     set_element_case(destination, element_case(position_depart, grille), grille)
                     set_element_case(position_depart, " ", grille)
                 return True  # Renvoie True si le déplacement est valide ou a été effectué.
@@ -345,7 +354,6 @@ def deplacement_retournement(position_depart, destination, grille, pas_de_deplac
                 if emplacement_libre_entre(position_depart, pion_avant_destination, grille):
                     # Vérifie que les cases entre les deux pions sont toutes vides
                     if not pas_de_deplacement:  # Ne réalise pas les déplacements dans le cas des asserts
-                        # TODO HPROBLEME: Matrice_fin_partie modifié en même temps !
                         set_element_case(destination, element_case(position_depart, grille), grille)
                         set_element_case(pion_avant_destination, element_case(position_depart, grille), grille)
                         set_element_case(position_depart, " ", grille)
@@ -372,47 +380,6 @@ def demander_pion_depart(pion_joueur, grille):  # sous fonction de tour_joueur()
         print("Le pion sélectionné n'est pas un de vos pions.")
         pion_depart = saisir_coordonees(grille, "du pion de départ")
     return pion_depart
-
-
-# def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille, deplacement_robot, robot=False):
-#     # sous fonction de tour_joueur(). Enchainement déplacement par retournement
-#     if not prise_elimination_avant:  # sera utile pour atelier 4, explication dans print() à la fin de la fonction.
-#         tour_valide = True
-#         print("Vous avez fait un déplacement par retournement.")
-#         afficher_table(grille, Alphabet, pion_joueur)
-#
-#         pion_depart = position_destination
-#         liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
-#         if assistant:
-#             affichage_assistant_deplacement(liste_deplacement_possible, "retournement")
-#
-#         if len(liste_deplacement_possible) > 0:
-#             if not robot:
-#                 print("Vous pouvez continuer ce type de déplacement. Écrivez des coordonnées non valide pour arrêter.")
-#                 position_destination = saisir_coordonees(grille, "de la case de destination")
-#             else:
-#                 deplacement_choisi = random.choice(liste_deplacement_possible)
-#                 position_destination = deplacement_choisi[1]
-#             while deplacement_retournement(pion_depart, position_destination, grille) and len(liste_deplacement_possible)>0:
-#                 # Tant que le déplacement réalisé est valide et que d'autres sont réalisables
-#                 afficher_table(grille, Alphabet, pion_joueur)
-#                 pion_depart = position_destination
-#
-#                 liste_deplacement_possible = assistant_deplacement_retournement(pion_joueur, grille, pion_depart)
-#                 if assistant:
-#                     affichage_assistant_deplacement(liste_deplacement_possible, "retournement")
-#
-#                 if len(liste_deplacement_possible) > 0 and not robot:
-#                     position_destination = saisir_coordonees(grille, "de la case de destination")
-#                 elif len(liste_deplacement_possible) > 0 and robot:
-#                     deplacement_choisi = random.choice(liste_deplacement_possible)
-#                     position_destination = deplacement_choisi[1]
-#                 else:
-#                     print("Aucun déplacement possible.")
-#         else:
-#             print("Aucun déplacement possible.")
-#         return tour_valide
-#     print("Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par retournement")
 
 
 def tour_joueur_dp(prise_elimination_avant, position_destination, pion_joueur, assistant, grille):
@@ -930,7 +897,8 @@ def afficher_menu():  # affichage du menu sur la console
      [05]   Saisir coordonnées
      [06]   Lancer le tour d'un joueur
      [07]   Lancer une partie
-     [08]   Quitter
+     [08]   lancer les testes de fonctions
+     [09]   Quitter
      
     ''')
 
@@ -969,11 +937,10 @@ def sous_menu_tour_joueur():
 
 def menu():  # centralise et exécute les fonctions appropriées selon le numéro sélectionné
     afficher_menu()
-    numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=8)
+    numero_selectionne = saisir_nombre(nb_minimum=1, nb_maximum=9)
     clear(80)
     if 1 <= numero_selectionne <= 3:
         afficher_grille_predefini(numero_selectionne)
-        pass
     elif numero_selectionne == 4:
         afficher_grille_de_taille_souhaite()
     elif numero_selectionne == 5:
@@ -981,8 +948,11 @@ def menu():  # centralise et exécute les fonctions appropriées selon le numér
     elif numero_selectionne == 6:
         sous_menu_tour_joueur()
     elif numero_selectionne == 7:
-        partie(Matrice_debut_partie[:], assistant=True)
+        Matrice = Fonction_Matrice_debut_partie()
+        partie(Matrice, assistant=True)
     elif numero_selectionne == 8:
+        lancer_testes_fonctions()
+    elif numero_selectionne == 9:
         quit()
     menu()
 
@@ -994,7 +964,6 @@ def start():  # Affichage au lancement du jeu
       |__) |__  |__)  |\/| |  | |  \ |__  /__` 
       |__) |___ |  \  |  | \__/ |__/ |___ .__/ 
     ''')
-    lancer_testes_fonctions()
     menu()  # ouvre le menu du jeu
 
 

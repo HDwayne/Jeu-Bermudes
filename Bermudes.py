@@ -313,21 +313,6 @@ def pion_est_ennemi(position_depart, destination, grille):
     return False
 
 
-def fin_partie(grille, affichage=True):
-    # Vérifie si la partie est finie ou non
-    nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
-    if nb_pions_noir < 6 or nb_pion_blanc < 6:
-        if nb_pions_noir < 6:
-            if affichage:
-                return True, print("le joueur \"●\" à gagner !")
-            return True
-        elif nb_pion_blanc < 6:
-            if affichage:
-                return True, print("le joueur \"O\" à gagner !")
-            return True
-    return False
-
-
 def deplacement_elimination(position_depart, destination, grille, pas_de_deplacement=False):
     # Vérifie si les pions sélectionnés sont valides au déplacement. Si c'est le cas le déplacement est effectué
     if direction_valide(position_depart, destination):  # Vérifie que l'axe entre les deux pions est valide
@@ -471,10 +456,12 @@ def tour_lancer(grille, pion_joueur, assistant, robot=False):  # Effectue le tou
             choix_type_deplacement = tour_robot_choix_type_deplacement(liste_dep_retour, liste_dep_elim)
             if choix_type_deplacement == 0:  # deplacement_elimination
                 print("L'ordinateur a fait une prise par elimination")
+                type_deplacement = "elimination"
                 tour_robot_dp_elimination(liste_dep_elim, grille)
                 tour_valide = True
             elif choix_type_deplacement == 1 and len(liste_dep_retour) > 0:  # deplacement_retournement
                 print("L'ordinateur a fait une prise par retournement")
+                type_deplacement = "retournement"
                 tour_robot_dp_retournement(liste_dep_retour, grille)
                 tour_valide = True
         else:
@@ -482,15 +469,18 @@ def tour_lancer(grille, pion_joueur, assistant, robot=False):  # Effectue le tou
             position_destination = saisir_coordonees(grille, "de la case de destination")
             if deplacement_elimination(pion_depart, position_destination, grille):  # deplacement_elimination
                 print("Vous avez fait un déplacement par élimination.")
+                type_deplacement = "elimination"
                 tour_valide = True
             elif deplacement_retournement(pion_depart, position_destination, grille):  # deplacement_retournement
                 tour_joueur_dp_retournement(position_destination, pion_joueur, assistant, grille)
+                type_deplacement = "retournement"
                 tour_valide = True
             else:  # Déplacement demandé invalide
                 print("Merci de respécter les règles de déplacement.")
                 tour_valide = False
 
     afficher_table(grille, Alphabet, pion_joueur)
+    return type_deplacement
 
 
 def assistant_deplacement_convertir_joueur(pion_joueur):
@@ -554,37 +544,60 @@ def conversion_coordonees_inv(ligne, colonne):
     return ligne, colonne
 
 
-def partie_ordi_ordi(grille, assistant):
-    cpt_tour = 1
-    while not fin_partie(grille):
-        print("=============================================================================================")
-        print("tour n°", cpt_tour)
-        print("=============================================================================================")
-        tour_lancer(grille, "O", assistant, robot=True)
-        print("-----------------------------------------------------------")
-        if not fin_partie(grille, affichage=False):
-            tour_lancer(grille, "●", assistant, robot=True)
+def fin_partie(grille, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, affichage=True):
+    # Vérifie si la partie est finie ou non
+    nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
+    if nb_pions_noir < 6 or nb_pion_blanc < 6:
+        if nb_pions_noir < 6:
+            if affichage:
+                return True, statistique("●", nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b)
+            return True
+        elif nb_pion_blanc < 6:
+            if affichage:
+                return True, statistique("O", nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b)
+            return True
+    return False
+
+
+def statistique(pion_gagnant, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b):
+    print(f'''
+    ┌─────────────────────────────────────────────┐
+                     Statistiques
+    └─────────────────────────────────────────────┘
+     >          le joueur \"{pion_gagnant}\" a gagner !         <
+     >               en {nb_tours} tours !               <
+     
+      * pions noirs
+     nombre de déplacement par élimination {nb_dp_eli_n}    
+     nombre de déplacement par retournement {nb_dp_retour_n}   
+     
+      * pions blancs
+     nombre de déplacement par élimination {nb_dp_eli_b}    
+     nombre de déplacement par retournement {nb_dp_retour_b}   
+
+    ''')
+
+
+def partie_ordi_ordi(grille, assistant, joueur_n_robot=False, joueur_b_robot=False):
+    cpt_tour = nb_dp_eli_n = nb_dp_eli_b = nb_dp_retour_n = nb_dp_retour_b = 0
+    while not fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b):
         cpt_tour += 1
+        print("===================================================================")
+        print("tour n°", cpt_tour)
+        print("===================================================================")
+        type_deplacement = tour_lancer(grille, "O", assistant, joueur_n_robot)
+        if type_deplacement == "elimination":
+            nb_dp_eli_n += 1
+        elif type_deplacement == "retournement":
+            nb_dp_retour_n += 1
 
-
-def partie_joueur_ordi(grille, assistant):
-    while not fin_partie(grille):
-        print("=============================================================================================")
-        tour_lancer(grille, "O", assistant)
-        print("-----------------------------------------------------------")
-        if not fin_partie(grille, affichage=False):
-            tour_lancer(grille, "●", assistant, robot=True)
-            print("=============================================================================================")
-
-
-def partie_joueur_joueur(grille, assistant):
-    while not fin_partie(grille):
-        print("=============================================================================================")
-        tour_lancer(grille, "O", assistant)
-        print("-----------------------------------------------------------")
-        if not fin_partie(grille, affichage=False):
-            tour_lancer(grille, "●", assistant)
-            print("=============================================================================================")
+        if not fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, affichage=False):
+            print("-------------------------------------------------------------------")
+            type_deplacement = tour_lancer(grille, "●", assistant, joueur_b_robot)
+            if type_deplacement == "elimination":
+                nb_dp_eli_b += 1
+            elif type_deplacement == "retournement":
+                nb_dp_retour_b += 1
 
 
 def test_creer_matrice():  # Teste la fonction "cree_matrice"
@@ -986,13 +999,13 @@ def sous_menu_partie(assistant):
     clear(80)
     if selection == 1:
         matrice = sous_menu_choix_matrice("    Joueur - Ordinateur", assistant)
-        partie_joueur_ordi(matrice, assistant)
+        partie_ordi_ordi(matrice, assistant, False, True)
     elif selection == 2:
         matrice = sous_menu_choix_matrice("    Joueur - Joueur    ", assistant)
-        partie_joueur_joueur(matrice, assistant)
+        partie_ordi_ordi(matrice, assistant)
     elif selection == 3:
         matrice = sous_menu_choix_matrice("Ordinateur - Ordinateur", assistant)
-        partie_ordi_ordi(matrice, assistant)
+        partie_ordi_ordi(matrice, assistant, True, True)
     elif selection == 4:
         menu()
 

@@ -132,6 +132,10 @@ def saisir_coordonees(grille, text_additionel=""):
     # demande a l'utilisateur de saisir les coordonnées tant qu'elles ne sont pas valides
     while True:
         coordonees_a_valider = str(input("Saisir les coordonnées " + text_additionel + ": "))
+        if coordonees_a_valider == "passer" or coordonees_a_valider == "Passer":
+            return "passer"
+        elif coordonees_a_valider == "abandonner" or coordonees_a_valider == "Abandonner":
+            return "abandonner"
         while not verification_syntaxe_saisir_coordonees(coordonees_a_valider):
             print("Syntaxe incorrecte. Exemple A2")
             coordonees_a_valider = str(input("Saisir les coordonnées " + text_additionel + ": "))
@@ -358,7 +362,11 @@ def coordonees_pions_joueur(grille):
 
 def demander_pion_depart(pion_joueur, grille):  # sous fonction de tour_joueur(). Saisie pion depart
     coor_pions_noir, coor_pions_blanc = coordonees_pions_joueur(grille)
-    pion_depart = saisir_coordonees(grille, "du pion de départ")
+    pion_depart = saisir_coordonees(grille, "du pion de départ. Taper \"passer\" ou \"abandonner\" pour passer son tour ou abandonner la partie")
+    if pion_depart == "passer":
+        return "passer"
+    elif pion_depart == "abandonner":
+        return "abandonner"
     while pion_joueur == "O" and pion_depart not in coor_pions_noir or pion_joueur == "●" and \
             pion_depart not in coor_pions_blanc:  # Vérifie que le pion sélectionné appartient au joueur
         print("Le pion sélectionné n'est pas un de vos pions.")
@@ -431,12 +439,12 @@ def tour_robot_dp_elimination(liste_deplacement, grille):
 def tour_robot_choix_type_deplacement(liste_dep_retour, liste_dep_elim):
     if len(liste_dep_retour) > 0 and len(liste_dep_elim) > 0:
         # l'ordi choisi aléatoirement si les deux types de déplacement sont disponible
-        choix_type_deplacement = randrange(0, 2)
+        choix_type_deplacement = randrange(0, 3)
     else:
         if not len(liste_dep_retour) > 0:
-            choix_type_deplacement = 0
+            choix_type_deplacement = randrange(0, 2)
         elif not len(liste_dep_elim) > 0:
-            choix_type_deplacement = 1
+            choix_type_deplacement = randrange(1, 3)
     return choix_type_deplacement
 
 
@@ -454,6 +462,9 @@ def tour_lancer(grille, pion_joueur, assistant, robot=False):  # Effectue le tou
     while not tour_valide:
         if robot:
             choix_type_deplacement = tour_robot_choix_type_deplacement(liste_dep_retour, liste_dep_elim)
+            if choix_type_deplacement == 2:
+                print("L'ordinateur a passé son tour")
+                return "passer"
             if choix_type_deplacement == 0:  # deplacement_elimination
                 print("L'ordinateur a fait une prise par elimination")
                 type_deplacement = "elimination"
@@ -466,6 +477,12 @@ def tour_lancer(grille, pion_joueur, assistant, robot=False):  # Effectue le tou
                 tour_valide = True
         else:
             pion_depart = demander_pion_depart(pion_joueur, grille)
+            if pion_depart == "passer":
+                print("Vous avez passé votre tour.")
+                return "passer"
+            elif pion_depart == "abandonner":
+                print("Vous avez abandonner la partie.")
+                return "abandonner"
             position_destination = saisir_coordonees(grille, "de la case de destination")
             if deplacement_elimination(pion_depart, position_destination, grille):  # deplacement_elimination
                 print("Vous avez fait un déplacement par élimination.")
@@ -544,43 +561,47 @@ def conversion_coordonees_inv(ligne, colonne):
     return ligne, colonne
 
 
-def fin_partie(grille, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, affichage=True):
+def fin_partie(grille, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b, affichage=True, gagnant=""):
+    if gagnant != "":
+        return statistique(gagnant, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b, "L'adversaire a abandonné la partie !\n")
     # Vérifie si la partie est finie ou non
     nb_pions_noir, nb_pion_blanc = nombre_pions(grille)
     if nb_pions_noir < 6 or nb_pion_blanc < 6:
         if nb_pions_noir < 6:
             if affichage:
-                return True, statistique("●", nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b)
+                return True, statistique("●", nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b)
             return True
         elif nb_pion_blanc < 6:
             if affichage:
-                return True, statistique("O", nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b)
+                return True, statistique("O", nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b)
             return True
     return False
 
 
-def statistique(pion_gagnant, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b):
+def statistique(pion_gagnant, nb_tours, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b, commentaire=""):
     print(f'''
     ┌─────────────────────────────────────────────┐
                      Statistiques
     └─────────────────────────────────────────────┘
      >          le joueur \"{pion_gagnant}\" a gagner !         <
      >               en {nb_tours} tours !               <
-     
+     {commentaire}
       * pions noirs
      nombre de déplacement par élimination {nb_dp_eli_n}    
      nombre de déplacement par retournement {nb_dp_retour_n}   
+     nombre de tour passé {nb_pass_n}   
      
       * pions blancs
      nombre de déplacement par élimination {nb_dp_eli_b}    
      nombre de déplacement par retournement {nb_dp_retour_b}   
+     nombre de tour passé {nb_pass_b}   
 
     ''')
 
 
 def partie_ordi_ordi(grille, assistant, joueur_n_robot=False, joueur_b_robot=False):
-    cpt_tour = nb_dp_eli_n = nb_dp_eli_b = nb_dp_retour_n = nb_dp_retour_b = 0
-    while not fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b):
+    cpt_tour = nb_dp_eli_n = nb_dp_eli_b = nb_dp_retour_n = nb_dp_retour_b = nb_pass_n = nb_pass_b = 0
+    while not fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b):
         cpt_tour += 1
         print("===================================================================")
         print("tour n°", cpt_tour)
@@ -590,15 +611,22 @@ def partie_ordi_ordi(grille, assistant, joueur_n_robot=False, joueur_b_robot=Fal
             nb_dp_eli_n += 1
         elif type_deplacement == "retournement":
             nb_dp_retour_n += 1
-
-        if not fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, affichage=False):
+        elif type_deplacement == "passer":
+            nb_pass_n += 1
+        elif type_deplacement == "abandonner":
+            return fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b, True, "●")
+        if not fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n, nb_pass_b, affichage=False):
             print("-------------------------------------------------------------------")
             type_deplacement = tour_lancer(grille, "●", assistant, joueur_b_robot)
             if type_deplacement == "elimination":
                 nb_dp_eli_b += 1
             elif type_deplacement == "retournement":
                 nb_dp_retour_b += 1
-
+            elif type_deplacement == "passer":
+                nb_pass_b += 1
+            elif type_deplacement == "abandonner":
+                return fin_partie(grille, cpt_tour, nb_dp_eli_n, nb_dp_eli_b, nb_dp_retour_n, nb_dp_retour_b, nb_pass_n,
+                                  nb_pass_b, True, "O")
 
 def test_creer_matrice():  # Teste la fonction "cree_matrice"
     valeur_aleatoire = randint(1, 10)
@@ -1037,3 +1065,6 @@ def start():  # Affichage au lancement du jeu
 
 
 start()
+
+
+# TODO Il est impossiblede commencer par une prise par élimination et d’enchaîner avec une prise parretournement (saut)

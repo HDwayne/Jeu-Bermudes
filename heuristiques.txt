@@ -1,0 +1,14 @@
+Une note est attribuée à chaque déplacement possible (retournement et élimination) de ma façon suivante :
+
+un deplacement par retournement à une note initialisé à 2 (1 point pour avoir retourné un pion dans son equipe et 1 point pour le déplacement).
+un déplacement par élimination a une note initialisée à 1 (1 point pour le déplacement)
+
+Après avoir effectué le déplacement, on enlève un point à la note pour chaque pion ennemi qui aura la possibilité d'éliminer le pion.
+Par exemple après avoir effectué le déplacement, le pion se situe à la position de destination. si quatre pions ennemis
+ont la possibilité de l'attaquer. La note de ce déplacement se verra retirer 4 points.
+
+Pour les déplacements par retournement, 1 point est ajouté à la note pour chaques enchainement direct possible.
+Par exemple avoir effectué le déplacement, les pions au choix d'enchainer vers trois destinations.
+La note de ce déplacement se verra ajouter 3 points.
+
+lorsqu'il y a plusieurs "meilleur déplacement", le robot choisi aléatoirement parmi les meilleurs

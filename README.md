@@ -16,8 +16,7 @@ Le but du jeu est de réduire le nombre de pions de l’adversaire à moins de 6
 
 - Configuration de départ :
 
-
-fig
+![Configuration-img](https://github.com/HDwayne/ProjetS2_Bermudes/blob/c534f6943d10633c13009fc7af9352aee1c7e96f/img/A9R1qhs9uv_7bmq0r_a70.png)
 
 # 3 Déplacements possibles
 
@@ -36,6 +35,8 @@ Ce schéma montre des déplacements d’élimination possibles (en vert), imposs
 pion noir en G4 peut éliminer le pion blanc en I4, I6 ou encore le pion blanc en C8. Il ne peut pas
 éliminer les pions G3, H3 ou G5 car ils sont voisins.
 
+![Figure 1](https://github.com/HDwayne/ProjetS2_Bermudes/blob/c534f6943d10633c13009fc7af9352aee1c7e96f/img/A9Rplh3rt_7bmq0l_a70.png)
+
 Figure1 – Déplacement avec élimination
 
 ## 3.2 Prise par retournement (saut)
@@ -50,9 +51,13 @@ Lorsque cela est possible, le joueur peut effectuer un enchaînement de plusieur
 des sauts) et ainsi retourner plusieurs pions.
 Voici un exemple d’enchaînement et sa conséquence sur le plateau.
 
-fig
+![figure 2](https://github.com/HDwayne/ProjetS2_Bermudes/blob/c534f6943d10633c13009fc7af9352aee1c7e96f/img/A9Rjibdug_7bmq0o_a70.png)
 
-F2 va en F4, H4 puis E7 Les pions sautés changent de camp F3, G4 et F
+F2 va en F4, H4 puis E7 
+
+![figure 3](https://github.com/HDwayne/ProjetS2_Bermudes/blob/c534f6943d10633c13009fc7af9352aee1c7e96f/img/A9R1qhs9uv_7bmq0r_a70.png)
+
+Les pions sautés changent de camp F3, G4 et F6
 
 Il est impossible de commencer par une prise par élimination et d’enchaîner avec une prise par
 retournement (saut).

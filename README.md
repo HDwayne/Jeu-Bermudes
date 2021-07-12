@@ -68,4 +68,10 @@ Pour gagner il faut que votre adversaire ait moins de 6 pions.
 Au moment ou vous réduisez le nombre des pions de votre adversaire à moins de 6 (par élimi-
 nation ou retournement), votre adversaire est éliminé.
 
+# Affichage console
 
+![affichage 1](https://github.com/HDwayne/ProjetS2_Bermudes/blob/2d806e50e0fc4f88a77042b6b45ce03d286c2705/img/img_1.png)
+![affichage 2](https://github.com/HDwayne/ProjetS2_Bermudes/blob/2d806e50e0fc4f88a77042b6b45ce03d286c2705/img/img_2.png)
+![affichage 3](https://github.com/HDwayne/ProjetS2_Bermudes/blob/2d806e50e0fc4f88a77042b6b45ce03d286c2705/img/img_3.png)
+![affichage 4](https://github.com/HDwayne/ProjetS2_Bermudes/blob/2d806e50e0fc4f88a77042b6b45ce03d286c2705/img/img_4.png)
+![affichage 5](https://github.com/HDwayne/ProjetS2_Bermudes/blob/2d806e50e0fc4f88a77042b6b45ce03d286c2705/img/img_5.png)
